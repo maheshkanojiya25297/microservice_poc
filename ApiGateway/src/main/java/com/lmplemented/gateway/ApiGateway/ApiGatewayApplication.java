@@ -11,7 +11,7 @@ public class ApiGatewayApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(ApiGatewayApplication.class, args);
-		System.out.println("Api Gateway Calling..........");
+		System.out.println("Api Gateway Service Calling...");
 	}
 
 }
