@@ -1,0 +1,100 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/microservices
+    username: root
+    password: root
+  jpa:
+    hibernate:
+    ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+
+  application:
+    name: USER-SERVICE
+
+  config:
+    import: configserver:http://localhost:8085
+
+#  profiles:
+#    active: Dev
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-07884501.okta.com/oauth2/default
+      client:
+        registration:
+          my-internal-client:
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: Internal
+            client-id: 0oaadcaggnQs5sxNQ5d7
+            client-secret: ifQAIcZWk6SOE2QPdWJRxqgjwU908Amdsc5W_Lvp
+
+        provider:
+          okta:
+            issuer-uri: https://dev-07884501.okta.com/oauth2/default
+
+
+
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
+
+
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    web:
+      exposure:
+        include: health
+
+    health:
+      show-details: always
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      ratingHotelBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        waitDurationInOpenState: 6s
+        slidingWindowType: COUNT_BASED
+
+  retry:
+    instances:
+      ratingHotelService:
+        max-attempts: 3
+        wait-duration: 5s
+
+  ratelimiter:
+    instance:
+      userRateLimiter:
+        limit-refresh-period: 5s
+        limit-for-period: 2
+        timeout-duration: 0s
+
+okta:
+  oauth2:
+    issuer: https://dev-07884501.okta.com/oauth2/default
+    audience: api://default
+
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/UserService/pom.xml" />
+        <option value="$PROJECT_DIR$/../HotelService/pom.xml" />
+        <option value="$PROJECT_DIR$/../RatingService/pom.xml" />
+        <option value="$PROJECT_DIR$/../ServiceRegistry/pom.xml" />
+        <option value="$PROJECT_DIR$/../ApiGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/../CrudUserService/pom.xml" />
+        <option value="$PROJECT_DIR$/../ZcrudUserService/pom.xml" />
+        <option value="$PROJECT_DIR$/../JavaSampleTest/pom.xml" />
+        <option value="$PROJECT_DIR$/../boot-hazelcast/pom.xml" />
+        <option value="$PROJECT_DIR$/../HazelCastCacheService/pom.xml" />
+        <option value="$PROJECT_DIR$/../ConfigServer/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/../CrudUserService/pom.xml" />
+        <option value="$PROJECT_DIR$/../HazelCastCacheService/pom.xml" />
+        <option value="$PROJECT_DIR$/../JavaSampleTest/pom.xml" />
+        <option value="$PROJECT_DIR$/../ZcrudUserService/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="19" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
