@@ -1,0 +1,20 @@
+server:
+  port: 8061
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zcrudtest
+    username: root
+    password: root
+  jpa:
+    hibernate:
+    ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+
+hazelcast:
+  network:
+    join:
+      multicaste:
+        enabled: true
