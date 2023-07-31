@@ -40,3 +40,12 @@ third:
         ddl-auto: update
         show-sql: true
         generated-ddl: true
+
+
+hazelcast:
+  network:
+    join:
+      multicast:
+        enabled: true
+
+

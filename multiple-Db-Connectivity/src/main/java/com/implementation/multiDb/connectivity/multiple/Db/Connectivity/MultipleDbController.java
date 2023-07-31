@@ -10,6 +10,7 @@ import com.implementation.multiDb.connectivity.multiple.Db.Connectivity.postgres
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,14 +34,14 @@ public class MultipleDbController {
 
     private Logger logger = LoggerFactory.getLogger(MultipleDbController.class);
 
-    @PostMapping("/users/")
+    @PostMapping("/users")
     public ResponseEntity<User> addUser(@RequestBody User user) {
         User user1 = userRepository.save(user);
         logger.info("addUser: user: {} " + user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user1);
     }
 
-    @PostMapping("/products/")
+    @PostMapping("/products")
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
         Product product1 = productRepository.save(product);
         logger.info("addProduct : product1: {} " + product1);
@@ -48,7 +49,7 @@ public class MultipleDbController {
     }
 
 
-    @PostMapping("/infousers/")
+    @PostMapping("/infousers")
     public ResponseEntity<UserInfo> addUserInfo(@RequestBody UserInfo userInfo) {
         UserInfo outputUserInfo = userInfoRepository.save(userInfo);
         logger.info("addUserInfo : outputUserInfo: {} " + outputUserInfo);
@@ -56,14 +57,16 @@ public class MultipleDbController {
     }
 
 
-    @GetMapping("/users/")
+    @GetMapping("/users")
+    @Cacheable("User")
     public ResponseEntity<List<User>> getAllUser() {
         List<User> user = userRepository.findAll();
         logger.info("getAllUser: user: {} " + user);
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/products/")
+    @GetMapping("/products")
+    @Cacheable("Product")
     public ResponseEntity<List<Product>> getAllProduct() {
         List<Product> product = productRepository.findAll();
         logger.info("getAllProduct : product: {} " + product);
@@ -71,7 +74,8 @@ public class MultipleDbController {
     }
 
 
-    @GetMapping("/infousers/")
+    @GetMapping("/infousers")
+    @Cacheable("UserInfo")
     public ResponseEntity<List<UserInfo>> addAllUserInfo() {
         List<UserInfo> userInfos = userInfoRepository.findAll();
         logger.info("getAllUserInfo : userInfos: {} " + userInfos);
@@ -80,6 +84,7 @@ public class MultipleDbController {
 
 
     @GetMapping("/infousers/{id}")
+    @Cacheable("UserInfo")
     public ResponseEntity<Optional<UserInfo>> getEachUserInfo(@PathVariable("id") Integer id) throws RuntimeException, ResourceNotFoundException {
         Optional<UserInfo> userInfo = ofNullable(userInfoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(" UserInfo with this id doesn't exist in system!")));
         logger.info("getEachUserInfo : userInfo: {} " + userInfo);
@@ -88,6 +93,7 @@ public class MultipleDbController {
     }
 
     @GetMapping("/users/{id}")
+    @Cacheable("User")
     public ResponseEntity<Optional<User>> getEachUser(@PathVariable("id") Integer id) throws ResourceNotFoundException {
         Optional<User> user = ofNullable(userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with this ID doesn't exists in system !")));
         logger.info("getEachUser : user: {} " + user);
@@ -96,6 +102,7 @@ public class MultipleDbController {
     }
 
     @GetMapping("/products/{id}")
+    @Cacheable("Product")
     public ResponseEntity<Optional<Product>> getEachProduct(@PathVariable("id") Integer id) throws ResourceNotFoundException {
         Optional<Product> product = ofNullable(productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with this ID doesn't exists in system!")));
         logger.info("getEachProduct : product: {} " + product);

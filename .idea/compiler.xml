@@ -20,6 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="JavaSampleTest" target="17" />
       <module name="ZcrudUserService" target="17" />
     </bytecodeTargetLevel>
   </component>
@@ -29,9 +30,11 @@
       <module name="ConfigServer" options="-parameters" />
       <module name="HazelCastCacheService" options="-parameters" />
       <module name="HotelService" options="-parameters" />
+      <module name="JavaSampleTest" options="-parameters" />
       <module name="RatingService" options="-parameters" />
       <module name="ServiceRegistry" options="-parameters" />
       <module name="UserService" options="-parameters" />
+      <module name="ZcrudUserService" options="-parameters" />
       <module name="ZcrudUserService (1)" options="-parameters" />
       <module name="ZcrudUserService (2)" options="-parameters" />
       <module name="multiple-Db-Connectivity" options="-parameters" />
