@@ -1,6 +1,6 @@
 package com.test.lcdw.crud.service.ZcrudUserService.exceptions;
 
-import com.test.lcdw.crud.service.ZcrudUserService.response.ApiResponse;
+import com.test.lcdw.crud.service.ZcrudUserService.exceptions.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

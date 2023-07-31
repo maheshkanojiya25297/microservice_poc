@@ -12,6 +12,7 @@ spring:
     ddl-auto: update
     generate-ddl: true
     show-sql: true
+    
 
 #  application:
 #    name: ZCRUD-USER-SERVICE

@@ -1,4 +1,4 @@
-package com.test.lcdw.crud.service.ZcrudUserService.response;
+package com.test.lcdw.crud.service.ZcrudUserService.exceptions.response;
 
 import lombok.*;
 import org.springframework.http.HttpStatus;
