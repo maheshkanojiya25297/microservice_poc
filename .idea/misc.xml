@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/ServiceRegistry/pom.xml" />
         <option value="$PROJECT_DIR$/ZcrudUserService/pom.xml" />
         <option value="$PROJECT_DIR$/HazelCastCacheService/pom.xml" />
+        <option value="$PROJECT_DIR$/multiple-Db-Connectivity/pom.xml" />
       </list>
     </option>
   </component>
