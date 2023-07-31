@@ -1,0 +1,42 @@
+server:
+  port: 7071
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/multiple_db
+    username: root
+    password: root
+
+  jpa:
+    hibernate:
+    ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+
+
+second:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/multiple_db
+    username: postgres
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      open-in-view: true
+
+third:
+  mysqlmyhiber-datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/myhiber
+    username: root
+    password: root
+
+    jpa:
+      hibernate:
+        ddl-auto: update
+        show-sql: true
+        generated-ddl: true
