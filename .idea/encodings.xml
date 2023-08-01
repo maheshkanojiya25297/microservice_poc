@@ -19,6 +19,8 @@
     <file url="file://$PROJECT_DIR$/UserService/UserService/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ZcrudUserService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ZcrudUserService/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hibernate-SecondLevel-Caching/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hibernate-SecondLevel-Caching/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/multiple-Db-Connectivity/src/main/java" charset="UTF-8" />
   </component>
 </project>

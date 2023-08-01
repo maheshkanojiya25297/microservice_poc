@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.test.lcdw.crud.service</groupId>
-	<artifactId>ZcrudUserService</artifactId>
+	<artifactId>JavaSampleTest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ZcrudUserService</name>
+	<name>JavaSampleTest</name>
 	<description>This is User Micro Service </description>
 	<properties>
 		<java.version>17</java.version>

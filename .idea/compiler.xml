@@ -8,20 +8,22 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="HotelService" />
-        <module name="ZcrudUserService (1)" />
         <module name="UserService" />
         <module name="HazelCastCacheService" />
-        <module name="ZcrudUserService (2)" />
+        <module name="ZcrudUserService" />
         <module name="ConfigServer" />
         <module name="ServiceRegistry" />
+        <module name="JavaSampleTest" />
         <module name="RatingService" />
         <module name="multiple-Db-Connectivity" />
         <module name="ApiGateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="JavaSampleTest" target="17" />
-      <module name="ZcrudUserService" target="17" />
+      <module name="hibernate-SecondLevel-Caching" target="1.5" />
+      <module name="ProjectWithMaven" target="1.5" />
+      <module name="ZcrudUserService (1)" target="17" />
+      <module name="ZcrudUserService (2)" target="19" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
