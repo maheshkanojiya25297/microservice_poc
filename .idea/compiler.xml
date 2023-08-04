@@ -10,6 +10,7 @@
         <module name="HotelService" />
         <module name="UserService" />
         <module name="HazelCastCacheService" />
+        <module name="RedisCacheService" />
         <module name="ZcrudUserService" />
         <module name="ConfigServer" />
         <module name="ServiceRegistry" />
@@ -22,6 +23,7 @@
     <bytecodeTargetLevel>
       <module name="hibernate-SecondLevel-Caching" target="1.5" />
       <module name="ProjectWithMaven" target="1.5" />
+      <module name="redis-cache" target="19" />
       <module name="ZcrudUserService (1)" target="17" />
       <module name="ZcrudUserService (2)" target="19" />
     </bytecodeTargetLevel>
@@ -34,12 +36,14 @@
       <module name="HotelService" options="-parameters" />
       <module name="JavaSampleTest" options="-parameters" />
       <module name="RatingService" options="-parameters" />
+      <module name="RedisCacheService" options="-parameters" />
       <module name="ServiceRegistry" options="-parameters" />
       <module name="UserService" options="-parameters" />
       <module name="ZcrudUserService" options="-parameters" />
       <module name="ZcrudUserService (1)" options="-parameters" />
       <module name="ZcrudUserService (2)" options="-parameters" />
       <module name="multiple-Db-Connectivity" options="-parameters" />
+      <module name="redis-cache" options="-parameters" />
     </option>
   </component>
 </project>

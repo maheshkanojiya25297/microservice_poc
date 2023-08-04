@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/HazelCastCacheService/pom.xml" />
         <option value="$PROJECT_DIR$/multiple-Db-Connectivity/pom.xml" />
         <option value="$PROJECT_DIR$/hibernate-SecondLevel-Caching/pom.xml" />
+        <option value="$PROJECT_DIR$/RedisCacheService/pom.xml" />
       </list>
     </option>
   </component>

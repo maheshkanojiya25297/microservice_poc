@@ -13,6 +13,8 @@
     <file url="file://$PROJECT_DIR$/JavaSampleTest/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/RatingService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/RatingService/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/RedisCacheService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/RedisCacheService/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ServiceRegistry/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ServiceRegistry/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/UserService/UserService/src/main/java" charset="UTF-8" />
