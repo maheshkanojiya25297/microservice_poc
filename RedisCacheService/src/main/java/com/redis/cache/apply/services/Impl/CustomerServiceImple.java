@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerServiceImple implements
         CustomerService {
@@ -20,10 +22,10 @@ public class CustomerServiceImple implements
 
 
     @Override
-    public Customer AddCustomer(Customer customer) {
-        Customer customer1 = customerRepositories.save(customer);
-        logger.info("CustomerController method calling {} AddCustomer: " + customer1);
-        return customer1;
+    public String AddCustomer(Customer customer) {
+        customerRepositories.save(customer);
+        return " Record Inserted Successfully !!";
+
     }
 
     @Override
@@ -32,5 +34,15 @@ public class CustomerServiceImple implements
         Customer customer = customerRepositories.getById(id);
         logger.info("CustomerController method calling {} GetByCustomerId: " + customer);
         return customer;
+    }
+
+    @Override
+    public List<Customer> getAllCustomer() {
+        return customerRepositories.findAll();
+    }
+
+    @Override
+    public void deleteByCustomerId(long id) {
+        customerRepositories.deleteById(id);
     }
 }
