@@ -16,7 +16,17 @@
         <option value="$PROJECT_DIR$/multiple-Db-Connectivity/pom.xml" />
         <option value="$PROJECT_DIR$/hibernate-SecondLevel-Caching/pom.xml" />
         <option value="$PROJECT_DIR$/RedisCacheService/pom.xml" />
+        <option value="$PROJECT_DIR$/StundentRelationMapping/pom.xml" />
+        <option value="$PROJECT_DIR$/relationShipMapping/pom.xml" />
+        <option value="$PROJECT_DIR$/KeyCloakSecureService/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-keyclock/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/KeyCloakSecureService/pom.xml" />
+        <option value="$PROJECT_DIR$/StundentRelationMapping/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_19" default="true" project-jdk-name="19" project-jdk-type="JavaSDK">
