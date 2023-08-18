@@ -1,0 +1,22 @@
+server:
+  port: 7071
+
+keycloak:
+  auth-server-url: http://localhost:8080
+  realm: xomicBootkeyCloak
+  resource: xomic
+  public-client: true
+  bearer-only: true
+
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zcrudtest
+    username: root
+    password: root
+  jpa:
+    hibernate:
+    ddl-auto: update
+    generate-ddl: true
+    show-sql: true
