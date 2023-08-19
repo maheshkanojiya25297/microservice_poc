@@ -6,28 +6,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "comment")
-public class Comment implements Serializable {
-    private static final Long serialVersionUID = 1L;
+@Table(name = "auther")
+public class Auther{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private long id;
 
-    @Column(name = "comment_text")
-    private String commentText;
+    @Column(name = "auther_name")
+    private String autherName;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    Auther commentByAuther;
+    @Column(name = "auther_location")
+    private String autherLocation;
 }
