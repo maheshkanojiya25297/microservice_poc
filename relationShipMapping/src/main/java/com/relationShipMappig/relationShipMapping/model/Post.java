@@ -18,25 +18,10 @@ import java.util.List;
 public class Post implements Serializable {
     private static final Long serialVersionUID = 1L;
 
-  /*  @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private long post_id;
-
-    @Column(name="post_title")
-    private String post_title;
-
-    @Column(name = "post_description")
-    private String post_description;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pc_id" , referencedColumnName = "id")
-    List<Comment> comments = new ArrayList<>();*/
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonIgnore
+    //@JsonIgnore
     private long postSqId;
 
     @Column(name = "post_pins_id", unique = true)

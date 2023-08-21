@@ -16,7 +16,7 @@ public class Auther{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+    //@JsonIgnore
     private long id;
 
     @Column(name = "auther_name")

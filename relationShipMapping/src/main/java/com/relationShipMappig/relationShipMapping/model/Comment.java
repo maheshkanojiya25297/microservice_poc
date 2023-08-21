@@ -21,7 +21,7 @@ public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+    //@JsonIgnore
     private long id;
 
     @Column(name = "comment_text")

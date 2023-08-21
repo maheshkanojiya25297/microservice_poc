@@ -1,6 +1,8 @@
 package com.relationShipMappig.relationShipMapping.Controller;
 
-import com.relationShipMappig.relationShipMapping.model.Comment;
+import com.relationShipMappig.relationShipMapping.DTO.AuthorDTO;
+import com.relationShipMappig.relationShipMapping.DTO.CommentDTO;
+import com.relationShipMappig.relationShipMapping.DTO.postDTO;
 import com.relationShipMappig.relationShipMapping.model.Post;
 import com.relationShipMappig.relationShipMapping.repository.CommentRepository;
 import com.relationShipMappig.relationShipMapping.repository.PostRepository;
@@ -10,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -24,11 +28,34 @@ public class CommonController {
     private CommentRepository commentRepository;
 
     @GetMapping("/get")
-    private ResponseEntity<List<Post>> fetchPost() {
+    private ResponseEntity<List<postDTO>> fetchPost() {
         log.info("fetchPost {}:");
         List<Post> post = postRepository.findAll();
         log.info("post: " + post);
-        return ResponseEntity.status(HttpStatus.OK).body(post);
+        List<CommentDTO> comments = new ArrayList<>();
+        List<AuthorDTO> authors = new ArrayList<>();
+
+        List<postDTO> result = post.stream().map(post1 -> {
+            post1.getComments().stream().map(comment -> {
+                comments.add(CommentDTO.builder()
+                        .commentText(comment.getCommentText())
+                        .commentByAuther(
+                                 AuthorDTO.builder()
+                                .autherName(comment.getCommentByAuther()
+                                .getAutherName())
+                                .build()
+                        )
+                        .build());
+                return comment;
+            }).collect(Collectors.toList());
+
+            return postDTO.builder()
+                    .postDescription(post1.getPostDescription())
+                    .postTitle(post1.getPostTitle())
+                    .comments(comments)
+                    .build();
+        }).collect(Collectors.toList());
+     return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PostMapping("/add/post")
