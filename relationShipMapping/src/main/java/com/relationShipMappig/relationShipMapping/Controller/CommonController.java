@@ -83,7 +83,7 @@ public class CommonController {
             return postDTO.builder()
                     .postDescription(post1.getPostDescription())
                     .postTitle(post1.getPostTitle())
-                    .comments(comments)
+                    .comments(!comments.isEmpty() && comments != null ? comments: null)
                     .build();
         }).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(result);
