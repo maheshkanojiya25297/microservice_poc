@@ -6,13 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "auther")
-public class Auther{
+public class Auther {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +26,8 @@ public class Auther{
 
     @Column(name = "auther_location")
     private String autherLocation;
+
+    @OneToMany
+    @JoinColumn(name = "details_id", referencedColumnName = "id")
+    List<AutherDetails> detailsList = new ArrayList<>();
 }

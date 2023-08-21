@@ -5,10 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class AuthorDTO {
     private String autherName;
+    private String autherLocation;
+    private List<AuthDetailsDTO> detailsList;
 }
