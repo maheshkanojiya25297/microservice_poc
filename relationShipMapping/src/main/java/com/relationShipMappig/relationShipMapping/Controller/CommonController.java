@@ -65,6 +65,7 @@ public class CommonController {
                             .build());
                     return autherDetails;
                 }).collect(Collectors.toList());
+
                 comments.add(CommentDTO
                         .builder()
                         .commentText(comment.getCommentText())
@@ -73,7 +74,8 @@ public class CommonController {
                                         .builder()
                                         .autherLocation(comment.getCommentByAuther().getAutherLocation())
                                         .autherName(comment.getCommentByAuther().getAutherName())
-                                        .detailsList(!authorsDetails.isEmpty() && authorsDetails != null ? authorsDetails : null)
+                                        .detailsList(!authorsDetails.isEmpty()
+                                                && authorsDetails != null ? authorsDetails : null)
                                         .build()
                         )
                         .build());
@@ -83,7 +85,7 @@ public class CommonController {
             return postDTO.builder()
                     .postDescription(post1.getPostDescription())
                     .postTitle(post1.getPostTitle())
-                    .comments(!comments.isEmpty() && comments != null ? comments: null)
+                    .comments(!comments.isEmpty() && comments != null ? comments : null)
                     .build();
         }).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -121,5 +123,40 @@ public class CommonController {
         log.info("response:" + response);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
+
+    @GetMapping("/get/Post-info")
+    private ResponseEntity<List<postDTO>> fetchAutherInfo() {
+        List<Post> post = postRepository.findAll();
+        log.info("post: " + post);
+        List<CommentDTO> listOfComment = new ArrayList<>();
+
+        List<postDTO> outPut = post.stream().map(fetchPostData -> {
+                    fetchPostData.getComments().stream().map(fetchComment -> {
+
+                                listOfComment
+                                        .add(CommentDTO.builder()
+                                                .commentText(fetchComment.getCommentText())
+                                                .commentByAuther(AuthorDTO
+                                                        .builder()
+                                                        .autherName(fetchComment.getCommentByAuther().getAutherName())
+                                                        .autherLocation(fetchComment.getCommentByAuther().getAutherLocation())
+                                                        .detailsList(null)
+                                                        .build())
+                                                .build());
+                                return listOfComment;
+                            }
+                    ).collect(Collectors.toList());
+
+                    return postDTO
+                            .builder()
+                            .postDescription(fetchPostData.getPostDescription())
+                            .postTitle(fetchPostData.getPostTitle())
+                            .comments(!listOfComment.isEmpty() && listOfComment != null ? listOfComment : null)
+                            .build();
+                }
+        ).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.CREATED).body(outPut);
+    }
+
 
 }
