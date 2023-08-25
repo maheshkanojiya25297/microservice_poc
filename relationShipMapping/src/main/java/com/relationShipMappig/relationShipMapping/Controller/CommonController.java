@@ -4,6 +4,7 @@ import com.relationShipMappig.relationShipMapping.DTO.AuthDetailsDTO;
 import com.relationShipMappig.relationShipMapping.DTO.AuthorDTO;
 import com.relationShipMappig.relationShipMapping.DTO.CommentDTO;
 import com.relationShipMappig.relationShipMapping.DTO.postDTO;
+import com.relationShipMappig.relationShipMapping.Service.PostInfoService;
 import com.relationShipMappig.relationShipMapping.model.Auther;
 import com.relationShipMappig.relationShipMapping.model.AutherDetails;
 import com.relationShipMappig.relationShipMapping.model.Comment;
@@ -39,6 +40,9 @@ public class CommonController {
 
     @Autowired
     private AutherRepository autherRepository;
+
+    @Autowired
+    private PostInfoService postInfoService;
 
 
     @GetMapping("/get")
@@ -125,14 +129,37 @@ public class CommonController {
     }
 
     @GetMapping("/get/Post-info")
+    private ResponseEntity<?> getPostInfo(){
+        return ResponseEntity.ok(this.postInfoService.getPostInfo());
+    }
+
+
+    @GetMapping("/get/Post/info")
     private ResponseEntity<List<postDTO>> fetchAutherInfo() {
         List<Post> post = postRepository.findAll();
         log.info("post: " + post);
         List<CommentDTO> listOfComment = new ArrayList<>();
+        List<AuthDetailsDTO> listOfAuthor = new ArrayList<>();
 
         List<postDTO> outPut = post.stream().map(fetchPostData -> {
                     fetchPostData.getComments().stream().map(fetchComment -> {
+                                fetchComment.getCommentByAuther().getDetailsList().stream().map(
+                                        fetchAutherDeatils -> {
+                                            listOfAuthor.add(AuthDetailsDTO
+                                                    .builder()
+                                                    .id(fetchAutherDeatils.getId())
+                                                    .email(fetchAutherDeatils.getEmail())
+                                                    .gender(fetchAutherDeatils.getContact())
+                                                    .lastModifiedDate(fetchAutherDeatils.getLastModifiedDate())
+                                                    .lastModifiedBy(fetchAutherDeatils.getLastModifiedBy())
+                                                    .createdDate(fetchAutherDeatils.getCreatedDate())
+                                                    .createdBy(fetchAutherDeatils.getCreatedBy())
+                                                    .contact(fetchAutherDeatils.getContact())
+                                                    .build());
 
+                                            return listOfAuthor;
+                                        }
+                                ).collect(Collectors.toList());
                                 listOfComment
                                         .add(CommentDTO.builder()
                                                 .commentText(fetchComment.getCommentText())
@@ -140,7 +167,7 @@ public class CommonController {
                                                         .builder()
                                                         .autherName(fetchComment.getCommentByAuther().getAutherName())
                                                         .autherLocation(fetchComment.getCommentByAuther().getAutherLocation())
-                                                        .detailsList(null)
+                                                        .detailsList(!listOfAuthor.isEmpty() && listOfAuthor != null ? listOfAuthor : null)
                                                         .build())
                                                 .build());
                                 return listOfComment;
