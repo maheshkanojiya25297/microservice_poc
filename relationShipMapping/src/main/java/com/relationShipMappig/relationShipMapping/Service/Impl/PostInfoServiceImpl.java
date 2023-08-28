@@ -1,6 +1,7 @@
 package com.relationShipMappig.relationShipMapping.Service.Impl;
 
 import com.relationShipMappig.relationShipMapping.DTO.postDTO;
+import com.relationShipMappig.relationShipMapping.DTO.response.ServiceResponseBean;
 import com.relationShipMappig.relationShipMapping.Service.PostInfoService;
 import com.relationShipMappig.relationShipMapping.model.Post;
 import com.relationShipMappig.relationShipMapping.repository.PostRepository;
@@ -35,4 +36,6 @@ public class PostInfoServiceImpl implements PostInfoService {
         ).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(result);
     }
+
+
 }

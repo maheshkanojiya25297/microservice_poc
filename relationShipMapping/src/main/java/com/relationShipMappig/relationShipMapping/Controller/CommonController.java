@@ -4,6 +4,7 @@ import com.relationShipMappig.relationShipMapping.DTO.AuthDetailsDTO;
 import com.relationShipMappig.relationShipMapping.DTO.AuthorDTO;
 import com.relationShipMappig.relationShipMapping.DTO.CommentDTO;
 import com.relationShipMappig.relationShipMapping.DTO.postDTO;
+import com.relationShipMappig.relationShipMapping.Service.AutherInfoService;
 import com.relationShipMappig.relationShipMapping.Service.PostInfoService;
 import com.relationShipMappig.relationShipMapping.model.Auther;
 import com.relationShipMappig.relationShipMapping.model.AutherDetails;
@@ -43,6 +44,10 @@ public class CommonController {
 
     @Autowired
     private PostInfoService postInfoService;
+
+
+    @Autowired
+    private AutherInfoService autherInfoService;
 
 
     @GetMapping("/get")
@@ -129,7 +134,7 @@ public class CommonController {
     }
 
     @GetMapping("/get/Post-info")
-    private ResponseEntity<?> getPostInfo(){
+    private ResponseEntity<?> getPostInfo() {
         return ResponseEntity.ok(this.postInfoService.getPostInfo());
     }
 
@@ -185,5 +190,10 @@ public class CommonController {
         return ResponseEntity.status(HttpStatus.CREATED).body(outPut);
     }
 
+
+    @GetMapping("/get/auther-info")
+    private ResponseEntity<?> getAutherInfo() {
+        return ResponseEntity.ok(this.autherInfoService.getAutherInfo());
+    }
 
 }
