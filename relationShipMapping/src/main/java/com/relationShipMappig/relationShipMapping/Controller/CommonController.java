@@ -208,4 +208,9 @@ public class CommonController {
     private ResponseEntity<?> getSingleAutherInfoSpecific() {
         return ResponseEntity.ok(this.autherInfoService.getSingleAutherInfoSpecific());
     }
+
+    @GetMapping("/get/auther-info/single-dto")
+    private ResponseEntity<?> getSingleAutherInfoAll() {
+        return ResponseEntity.ok(this.autherInfoService.getSingleAutherInfoAll());
+    }
 }

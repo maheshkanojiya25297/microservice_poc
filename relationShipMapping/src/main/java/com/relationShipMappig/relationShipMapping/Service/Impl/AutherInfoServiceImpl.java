@@ -1,5 +1,6 @@
 package com.relationShipMappig.relationShipMapping.Service.Impl;
 
+import com.relationShipMappig.relationShipMapping.DTO.AuthDetailsDTO;
 import com.relationShipMappig.relationShipMapping.DTO.response.ServiceResponseBean;
 import com.relationShipMappig.relationShipMapping.Service.AutherInfoService;
 import com.relationShipMappig.relationShipMapping.model.AutherDetails;
@@ -70,6 +71,29 @@ public class AutherInfoServiceImpl implements AutherInfoService {
             hm.put("contactBy", CONTACTBY);
             hm.put("contactDate", CONTACTDATE);
             return ResponseEntity.ok(ServiceResponseBean.builder().data(hm).message("Data found for auther.").status(Boolean.TRUE).build());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(ServiceResponseBean.builder().status(Boolean.TRUE).message("No data found for auther.").build());
+    }
+
+    @Override
+    public ResponseEntity<ServiceResponseBean> getSingleAutherInfoAll() {
+        try {
+            List<AutherDetails> autherDetails1 = this.autherDeatailsRepository.findByGenderNotNullOrderByIdDesc();
+            //this.findByGenderNotNull();
+            //this.autherDeatailsRepository.getSingleAutherInfoAll();
+            log.info("getSingleAutherInfoAll {} autherDetails: " + autherDetails1);
+            List<AuthDetailsDTO> result = new ArrayList<>();
+            for (AutherDetails autherDetails : autherDetails1) {
+                AuthDetailsDTO authDetailsDTO = new AuthDetailsDTO();
+                authDetailsDTO.setId(autherDetails.getId());
+                authDetailsDTO.setCreatedBy(autherDetails.getCreatedBy());
+                authDetailsDTO.setContact(autherDetails.getContact());
+                authDetailsDTO.setEmail(autherDetails.getEmail());
+                result.add(authDetailsDTO);
+            }
+            return ResponseEntity.ok(ServiceResponseBean.builder().data(result).message("Data found for auther.").status(Boolean.TRUE).build());
         } catch (Exception e) {
             e.printStackTrace();
         }

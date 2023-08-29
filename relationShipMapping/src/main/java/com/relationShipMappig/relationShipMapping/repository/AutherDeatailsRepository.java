@@ -18,6 +18,7 @@ public interface AutherDeatailsRepository extends JpaRepository<AutherDetails, L
     //    @Query("select a from AutherDetails a where a.gender =:gender")
     //    AutherDetails getAutherInfo(@Param("gender") String gender);
 
+
     /* Data feth using List of Tuple */
     @Query("select a.contact,a.email  from AutherDetails a where a.gender =:gender and a.id <=:id")
     List<Tuple> getAutherInfo(@Param("gender") String gender, @Param("id") long id);
@@ -29,4 +30,14 @@ public interface AutherDeatailsRepository extends JpaRepository<AutherDetails, L
     /* Data feth using Tuple*/
     @Query("select a.contact, a.email, a.createdBy,a.createdDate from AutherDetails a where a.gender =:gender")
     Tuple getSingleAutherInfoSpecific(@Param("gender") String gender);
+
+    /* Data fetch using DTO*/
+    @Query("select a from AutherDetails a where a.gender is not null")
+    List<AutherDetails> getSingleAutherInfoAll();
+
+    /* Data fetch using Derived Query*/
+    List<AutherDetails> findByGenderNotNull();
+
+    /* Data fetch using Derived Query*/
+    List<AutherDetails> findByGenderNotNullOrderByIdDesc();
 }

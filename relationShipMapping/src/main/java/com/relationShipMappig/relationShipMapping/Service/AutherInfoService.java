@@ -10,4 +10,6 @@ public interface AutherInfoService {
     Object getSingleAutherInfo();
 
     Object getSingleAutherInfoSpecific();
+
+    Object getSingleAutherInfoAll();
 }
