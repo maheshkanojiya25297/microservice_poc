@@ -191,9 +191,21 @@ public class CommonController {
     }
 
 
-    @GetMapping("/get/auther-info")
+    @GetMapping("/get/auther-info/multi")
     private ResponseEntity<?> getAutherInfo() {
         return ResponseEntity.ok(this.autherInfoService.getAutherInfo());
     }
 
+
+
+    @GetMapping("/get/auther-info/single")
+    private ResponseEntity<?> getSingleAutherInfo() {
+        return ResponseEntity.ok(this.autherInfoService.getSingleAutherInfo());
+    }
+
+
+    @GetMapping("/get/auther-info/single-specific")
+    private ResponseEntity<?> getSingleAutherInfoSpecific() {
+        return ResponseEntity.ok(this.autherInfoService.getSingleAutherInfoSpecific());
+    }
 }

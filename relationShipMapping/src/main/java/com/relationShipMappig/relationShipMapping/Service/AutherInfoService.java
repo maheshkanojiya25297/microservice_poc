@@ -6,4 +6,8 @@ import org.springframework.http.ResponseEntity;
 public interface AutherInfoService {
 
     ResponseEntity<ServiceResponseBean> getAutherInfo();
+
+    Object getSingleAutherInfo();
+
+    Object getSingleAutherInfoSpecific();
 }
