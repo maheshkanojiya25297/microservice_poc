@@ -40,4 +40,6 @@ public interface AutherDeatailsRepository extends JpaRepository<AutherDetails, L
 
     /* Data fetch using Derived Query*/
     List<AutherDetails> findByGenderNotNullOrderByIdDesc();
+
+
 }
