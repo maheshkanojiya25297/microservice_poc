@@ -12,4 +12,6 @@ public interface AutherInfoService {
     Object getSingleAutherInfoSpecific();
 
     Object getSingleAutherInfoAll();
+
+    Object getTupleData();
 }

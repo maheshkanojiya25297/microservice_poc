@@ -197,7 +197,6 @@ public class CommonController {
     }
 
 
-
     @GetMapping("/get/auther-info/single")
     private ResponseEntity<?> getSingleAutherInfo() {
         return ResponseEntity.ok(this.autherInfoService.getSingleAutherInfo());
@@ -212,5 +211,11 @@ public class CommonController {
     @GetMapping("/get/auther-info/single-dto")
     private ResponseEntity<?> getSingleAutherInfoAll() {
         return ResponseEntity.ok(this.autherInfoService.getSingleAutherInfoAll());
+    }
+
+
+    @GetMapping("/get/auther-info/tupple")
+    private ResponseEntity<?> getTupleData() {
+        return ResponseEntity.ok(this.autherInfoService.getTupleData());
     }
 }

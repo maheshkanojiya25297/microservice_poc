@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -116,12 +117,54 @@ public class AutherInfoServiceImpl implements AutherInfoService {
         return ResponseEntity.ok(ServiceResponseBean.builder().status(Boolean.TRUE).message("No data found for auther.").build());
     }
 
+    @Override
+    public Object getTupleData() {
+        try {
+            Query query = this.entityManager.createNativeQuery("SELECT * FROM AUTHERDETAIL", Tuple.class);
+            List<Tuple> tupleList = query.getResultList();
+            //List<Tuple> result =tupleList.stream().collect(Collectors.toList());
+            List<AuthDetailsDTO> authDetailsDTOS = new ArrayList<>();
+            for (Tuple result : tupleList) {
+                log.info("AutherInfoServiceImpl {} getTupleData(): \r\n" + result.get(0, BigInteger.class) + "\r\n" + result.get(1, String.class) + "\r\n" + result.get(2, String.class) +
+                        "\r\n" + result.get(3, Date.class) + "\r\n" + result.get(4, String.class) + "\r\n" + result.get(5, String.class) +
+                        "\r\n" + result.get(6, String.class) + "\r\n" + result.get(7, Date.class) + "\r\n" + result.get(8, BigInteger.class));
+
+            }
+
+            String openStr = "'" ;
+            String closeStr = "'";
+            String format = openStr+"%W %M %e %Y"+closeStr;
+            log.info("AutherInfoServiceImpl {} getTupleData(): \r\n" + format);
+            Query query1 = this.entityManager.createNativeQuery("SELECT id,gender,email,contact,created_by,created_date  as created_date,last_modified_by,last_modified_date FROM AUTHERDETAIL", AutherDetails.class);
+            log.info("AutherInfoServiceImpl {} getTupleData(): \r\n" + query1);
+            List<AutherDetails> lsMap = query1.getResultList();
+            List<AuthDetailsDTO> result = new ArrayList<>();
+            for (AutherDetails map : lsMap) {
+                log.info("AutherInfoServiceImpl {} getTupleData(): \r\n" + map.getCreatedDate());
+                AuthDetailsDTO authDetailsDTOS1 = new AuthDetailsDTO();
+                authDetailsDTOS1.setId(map.getId());
+                authDetailsDTOS1.setContact(map.getContact());
+                authDetailsDTOS1.setGender(map.getGender());
+                authDetailsDTOS1.setCreatedDate(map.getCreatedDate());
+                authDetailsDTOS1.setEmail(map.getEmail());
+                authDetailsDTOS1.setLastModifiedDate(map.getLastModifiedDate());
+                authDetailsDTOS1.setLastModifiedBy(map.getLastModifiedBy());
+                authDetailsDTOS1.setCreatedBy(map.getCreatedBy());
+                result.add(authDetailsDTOS1);
+            }
+            return ResponseEntity.ok(ServiceResponseBean.builder().data(result).status(Boolean.TRUE).message("Data recieved.").build());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return ResponseEntity.ok(ServiceResponseBean.builder().message("No data exist").status(Boolean.FALSE).errorCode(716).build());
+    }
+
     private void getDataByNativeQyery() {
         Query query = this.entityManager.createNativeQuery("select * from autherdetail", Tuple.class); //, AutherDetails.class);
         log.info("Query: " + query);
         List<Tuple> tupleList = query.getResultList();
         log.info("tupleList: " + tupleList);
-        for (Tuple tpl : tupleList){
+        for (Tuple tpl : tupleList) {
             System.out.println(tpl.get(0, BigInteger.class));
             log.info(tpl.get(1, String.class));
         }
