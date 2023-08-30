@@ -1,5 +1,6 @@
 package com.relationShipMappig.relationShipMapping.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.relationShipMappig.relationShipMapping.DTO.AuthDetailsDTO;
 import com.relationShipMappig.relationShipMapping.DTO.AuthorDTO;
 import com.relationShipMappig.relationShipMapping.DTO.CommentDTO;
@@ -222,9 +223,11 @@ public class CommonController {
 
     @PostMapping("/get/auther-info/tupple")
     private ResponseEntity<?> saveAutherData
-            (@RequestBody ServiceRequestBean serviceRequestBean) {
+            (@RequestBody ServiceRequestBean serviceRequestBean) throws JsonProcessingException {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.autherInfoService.saveAutherData(serviceRequestBean));
 
     }
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.relationShipMappig.relationShipMapping.Service.Impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.relationShipMappig.relationShipMapping.DTO.AuthDetailsDTO;
 import com.relationShipMappig.relationShipMapping.DTO.DetailsDTO;
 import com.relationShipMappig.relationShipMapping.DTO.request.ServiceRequestBean;
@@ -24,6 +25,12 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 @Slf4j
@@ -204,13 +211,6 @@ public class AutherInfoServiceImpl implements AutherInfoService {
         return ResponseEntity.ok(ServiceResponseBean.builder().message("No data exist").status(Boolean.FALSE).errorCode(716).build());
     }
 
-    @Override
-    public Object saveAutherData(ServiceRequestBean serviceRequestBean) {
-        log.info("saveAutherData{} serviceRequestBean: " +serviceRequestBean);
-        AutherDetails autherDetails = autherdetailsPojjoEntityMapper.roleUserEntityPojo(serviceRequestBean);
-        log.info("saveAutherData{} autherDetails: " +autherDetails);
-        return this.autherDeatailsRepository.save(autherDetails);
-    }
 
     private void getDataByNativeQyery() {
         Query query;
@@ -222,5 +222,28 @@ public class AutherInfoServiceImpl implements AutherInfoService {
             System.out.println(tpl.get(0, BigInteger.class));
             log.info(tpl.get(1, String.class));
         }
+    }
+
+
+    public ObjectMapper objectMapper = fetchObjectMapperInstance();
+
+    /*Object Mapper Logic added to save entire response in to database*/
+    public ObjectMapper fetchObjectMapperInstance() {
+        ObjectMapper objectMapperClass = new ObjectMapper();
+        objectMapperClass.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        objectMapperClass.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapperClass.findAndRegisterModules();
+        objectMapperClass.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true);
+        return objectMapperClass;
+    }
+
+    @Override
+    public Object saveAutherData(ServiceRequestBean serviceRequestBean) throws JsonProcessingException {
+        log.info("saveAutherData{} serviceRequestBean: " + serviceRequestBean);
+        String writeValueAsString = this.objectMapper.writeValueAsString(serviceRequestBean);
+        serviceRequestBean.setResponseBodyTxt(writeValueAsString);
+        AutherDetails autherDetails = autherdetailsPojjoEntityMapper.roleUserEntityPojo(serviceRequestBean);
+        log.info("saveAutherData{} autherDetails: " + autherDetails);
+        return this.autherDeatailsRepository.save(autherDetails);
     }
 }

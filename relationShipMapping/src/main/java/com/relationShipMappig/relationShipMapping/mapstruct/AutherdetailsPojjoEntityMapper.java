@@ -20,7 +20,8 @@ public interface AutherdetailsPojjoEntityMapper {
             @Mapping(target = "createdDate", source = "serviceRequestBean.createdDate"),
             @Mapping(target = "createdBy", source = "serviceRequestBean.createdBy"),
             @Mapping(target = "lastModifiedDate", source = "serviceRequestBean.lastModifiedDate"),
-            @Mapping(target = "lastModifiedBy", source = "serviceRequestBean.lastModifiedBy")
+            @Mapping(target = "lastModifiedBy", source = "serviceRequestBean.lastModifiedBy"),
+            @Mapping(target = "responseBodyTxt", source = "serviceRequestBean.responseBodyTxt")
     })
     AutherDetails roleUserEntityPojo(ServiceRequestBean serviceRequestBean);
 }

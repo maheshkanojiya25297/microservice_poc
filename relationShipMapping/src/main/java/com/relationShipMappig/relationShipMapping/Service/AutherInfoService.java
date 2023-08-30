@@ -1,5 +1,6 @@
 package com.relationShipMappig.relationShipMapping.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.relationShipMappig.relationShipMapping.DTO.request.ServiceRequestBean;
 import com.relationShipMappig.relationShipMapping.DTO.response.ServiceResponseBean;
 import org.springframework.http.ResponseEntity;
@@ -16,5 +17,5 @@ public interface AutherInfoService {
 
     Object getTupleData();
 
-    Object saveAutherData(ServiceRequestBean serviceRequestBean);
+    Object saveAutherData(ServiceRequestBean serviceRequestBean) throws JsonProcessingException;
 }

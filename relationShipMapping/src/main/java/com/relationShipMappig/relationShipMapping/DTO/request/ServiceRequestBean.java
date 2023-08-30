@@ -24,4 +24,5 @@ public class ServiceRequestBean {
     private String createdBy;
     private Date lastModifiedDate;
     private String lastModifiedBy;
+    protected String responseBodyTxt;
 }

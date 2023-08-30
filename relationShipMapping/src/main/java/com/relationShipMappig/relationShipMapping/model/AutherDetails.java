@@ -44,4 +44,6 @@ public class AutherDetails {
     @LastModifiedDate
     protected Date lastModifiedDate;
 
+    @Lob
+    protected String responseBodyTxt;
 }
