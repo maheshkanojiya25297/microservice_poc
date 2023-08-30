@@ -152,7 +152,7 @@ public class AutherInfoServiceImpl implements AutherInfoService {
             String closeStr = "'";
             String format = openStr + "%W %M %e %Y" + closeStr;
             log.info("AutherInfoServiceImpl {} getTupleData(): \r\n" + format);
-            Query query1 = this.entityManager.createNativeQuery("SELECT id,gender,email,contact,created_by,created_date  as created_date,last_modified_by,last_modified_date FROM AUTHERDETAIL", AutherDetails.class);
+            Query query1 = this.entityManager.createNativeQuery("SELECT id,gender,email,contact,created_by,created_date  as created_date,last_modified_by,last_modified_date,response_body_txt FROM AUTHERDETAIL", AutherDetails.class);
             log.info("AutherInfoServiceImpl {} getTupleData(): \r\n" + query1);
             List<AutherDetails> lsMap = query1.getResultList();
             List<AuthDetailsDTO> result = new ArrayList<>();
