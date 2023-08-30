@@ -11,13 +11,16 @@
         <module name="UserService" />
         <module name="HazelCastCacheService" />
         <module name="RedisCacheService" />
+        <module name="secure-springboot-keyclock" />
         <module name="ZcrudUserService" />
+        <module name="springboot-keyclock" />
+        <module name="relationShipMapping" />
+        <module name="ApiGateway" />
         <module name="ConfigServer" />
         <module name="ServiceRegistry" />
         <module name="JavaSampleTest" />
         <module name="RatingService" />
         <module name="multiple-Db-Connectivity" />
-        <module name="ApiGateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -44,6 +47,9 @@
       <module name="ZcrudUserService (2)" options="-parameters" />
       <module name="multiple-Db-Connectivity" options="-parameters" />
       <module name="redis-cache" options="-parameters" />
+      <module name="relationShipMapping" options="-parameters" />
+      <module name="secure-springboot-keyclock" options="-parameters" />
+      <module name="springboot-keyclock" options="-parameters" />
     </option>
   </component>
 </project>

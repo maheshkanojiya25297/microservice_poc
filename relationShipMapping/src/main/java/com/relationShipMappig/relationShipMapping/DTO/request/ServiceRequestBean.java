@@ -9,17 +9,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_NULL)
-public class UserRequestBean {
-	
-	@JsonProperty(value="username")
-	private String username;
-	
-	@JsonProperty(value="password")
-	private String password;
-	
+public class ServiceRequestBean {
+    private long id;
+    private String gender;
+    private String email;
+    private String contact;
+    private Date createdDate;
+    private String createdBy;
+    private Date lastModifiedDate;
+    private String lastModifiedBy;
 }

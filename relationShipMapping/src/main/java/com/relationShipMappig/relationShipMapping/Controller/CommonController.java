@@ -4,6 +4,7 @@ import com.relationShipMappig.relationShipMapping.DTO.AuthDetailsDTO;
 import com.relationShipMappig.relationShipMapping.DTO.AuthorDTO;
 import com.relationShipMappig.relationShipMapping.DTO.CommentDTO;
 import com.relationShipMappig.relationShipMapping.DTO.postDTO;
+import com.relationShipMappig.relationShipMapping.DTO.request.ServiceRequestBean;
 import com.relationShipMappig.relationShipMapping.Service.AutherInfoService;
 import com.relationShipMappig.relationShipMapping.Service.PostInfoService;
 import com.relationShipMappig.relationShipMapping.model.Auther;
@@ -218,4 +219,12 @@ public class CommonController {
     private ResponseEntity<?> getTupleData() {
         return ResponseEntity.ok(this.autherInfoService.getTupleData());
     }
+
+    @PostMapping("/get/auther-info/tupple")
+    private ResponseEntity<?> saveAutherData
+            (@RequestBody ServiceRequestBean serviceRequestBean) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.autherInfoService.saveAutherData(serviceRequestBean));
+
+    }
+
 }

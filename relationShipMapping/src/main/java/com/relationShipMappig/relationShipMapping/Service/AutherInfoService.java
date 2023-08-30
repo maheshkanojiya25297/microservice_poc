@@ -1,5 +1,6 @@
 package com.relationShipMappig.relationShipMapping.Service;
 
+import com.relationShipMappig.relationShipMapping.DTO.request.ServiceRequestBean;
 import com.relationShipMappig.relationShipMapping.DTO.response.ServiceResponseBean;
 import org.springframework.http.ResponseEntity;
 
@@ -14,4 +15,6 @@ public interface AutherInfoService {
     Object getSingleAutherInfoAll();
 
     Object getTupleData();
+
+    Object saveAutherData(ServiceRequestBean serviceRequestBean);
 }

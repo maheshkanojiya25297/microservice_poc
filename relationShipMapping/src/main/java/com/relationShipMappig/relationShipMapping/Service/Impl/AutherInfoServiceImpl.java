@@ -1,8 +1,11 @@
 package com.relationShipMappig.relationShipMapping.Service.Impl;
 
 import com.relationShipMappig.relationShipMapping.DTO.AuthDetailsDTO;
+import com.relationShipMappig.relationShipMapping.DTO.DetailsDTO;
+import com.relationShipMappig.relationShipMapping.DTO.request.ServiceRequestBean;
 import com.relationShipMappig.relationShipMapping.DTO.response.ServiceResponseBean;
 import com.relationShipMappig.relationShipMapping.Service.AutherInfoService;
+import com.relationShipMappig.relationShipMapping.mapstruct.AutherdetailsPojjoEntityMapper;
 import com.relationShipMappig.relationShipMapping.model.AutherDetails;
 import com.relationShipMappig.relationShipMapping.repository.AutherDeatailsRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +15,13 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,6 +34,9 @@ public class AutherInfoServiceImpl implements AutherInfoService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Autowired
+    private AutherdetailsPojjoEntityMapper autherdetailsPojjoEntityMapper;
 
     @Override
     public ResponseEntity<ServiceResponseBean> getAutherInfo() {
@@ -131,9 +141,9 @@ public class AutherInfoServiceImpl implements AutherInfoService {
 
             }
 
-            String openStr = "'" ;
+            String openStr = "'";
             String closeStr = "'";
-            String format = openStr+"%W %M %e %Y"+closeStr;
+            String format = openStr + "%W %M %e %Y" + closeStr;
             log.info("AutherInfoServiceImpl {} getTupleData(): \r\n" + format);
             Query query1 = this.entityManager.createNativeQuery("SELECT id,gender,email,contact,created_by,created_date  as created_date,last_modified_by,last_modified_date FROM AUTHERDETAIL", AutherDetails.class);
             log.info("AutherInfoServiceImpl {} getTupleData(): \r\n" + query1);
@@ -152,15 +162,59 @@ public class AutherInfoServiceImpl implements AutherInfoService {
                 authDetailsDTOS1.setCreatedBy(map.getCreatedBy());
                 result.add(authDetailsDTOS1);
             }
-            return ResponseEntity.ok(ServiceResponseBean.builder().data(result).status(Boolean.TRUE).message("Data recieved.").build());
+
+            query = this.entityManager.createNativeQuery("SELECT id,gender,email,contact,created_by,created_date,last_modified_by,last_modified_date FROM AUTHERDETAIL", Tuple.class);
+            log.info("query: " + query);
+            List<Tuple> detailsList = query.getResultList();
+            List<DetailsDTO> detailsDTOS = new ArrayList<>();
+
+            for (Tuple tupleResult : detailsList) {
+
+                log.info("AutherInfoServiceImpl {} getTupleData(): \r\n" + tupleResult.get(0, BigInteger.class)
+                        + "\r\n" + tupleResult.get(1, String.class) + "\r\n" + tupleResult.get(2, String.class)
+                        + "\r\n" + tupleResult.get(3, String.class) + "\r\n" + tupleResult.get(4, String.class)
+                        + "\r\n" + tupleResult.get(5, Timestamp.class) + "\r\n" + tupleResult.get(6, String.class)
+                        + "\r\n" + tupleResult.get(7, Timestamp.class));
+
+                Timestamp createdDate = tupleResult.get(5, Timestamp.class);
+                String createdDateStr = createdDate.toString();
+                Timestamp modifiedDate = tupleResult.get(7, Timestamp.class);
+                String modifiedDateStr = modifiedDate.toString();
+                log.info("createdDateStr---------------------->:" + createdDateStr);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+
+                detailsDTOS.add(DetailsDTO.builder()
+                        .id(String.valueOf(tupleResult.get(0, BigInteger.class)))
+                        .email(tupleResult.get(2, String.class))
+                        .gender(tupleResult.get(1, String.class))
+                        .contact(tupleResult.get(3, String.class))
+                        .createdBy(tupleResult.get(4, String.class))
+                        .createdDate(createdDateStr)
+                        .lastModifiedBy(tupleResult.get(6, String.class))
+                        .lastModifiedDate(modifiedDateStr)
+                        .build());
+            }
+
+            return ResponseEntity.ok(ServiceResponseBean.builder().data(detailsDTOS).status(Boolean.TRUE).message("Data recieved.").build());
+            //return ResponseEntity.ok(ServiceResponseBean.builder().data(result).status(Boolean.TRUE).message("Data recieved.").build());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return ResponseEntity.ok(ServiceResponseBean.builder().message("No data exist").status(Boolean.FALSE).errorCode(716).build());
     }
 
+    @Override
+    public Object saveAutherData(ServiceRequestBean serviceRequestBean) {
+        log.info("saveAutherData{} serviceRequestBean: " +serviceRequestBean);
+        AutherDetails autherDetails = autherdetailsPojjoEntityMapper.roleUserEntityPojo(serviceRequestBean);
+        log.info("saveAutherData{} autherDetails: " +autherDetails);
+        return this.autherDeatailsRepository.save(autherDetails);
+    }
+
     private void getDataByNativeQyery() {
-        Query query = this.entityManager.createNativeQuery("select * from autherdetail", Tuple.class); //, AutherDetails.class);
+        Query query;
+        query = this.entityManager.createNativeQuery("select * from autherdetail", Tuple.class); //, AutherDetails.class);
         log.info("Query: " + query);
         List<Tuple> tupleList = query.getResultList();
         log.info("tupleList: " + tupleList);
@@ -168,6 +222,5 @@ public class AutherInfoServiceImpl implements AutherInfoService {
             System.out.println(tpl.get(0, BigInteger.class));
             log.info(tpl.get(1, String.class));
         }
-
     }
 }
