@@ -1,5 +1,6 @@
 package com.relationShipMappig.relationShipMapping.DTO;
 
+import com.relationShipMappig.relationShipMapping.model.AutherDetails;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -19,4 +20,6 @@ public class DetailsDTO {
     private String createdBy;
     private String lastModifiedDate;
     private String lastModifiedBy;
+    //private String responseBodyTxt;
+    private AutherDetails responseBodyTxt;
 }

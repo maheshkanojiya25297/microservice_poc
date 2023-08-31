@@ -1,6 +1,7 @@
 package com.relationShipMappig.relationShipMapping.Service.Impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.relationShipMappig.relationShipMapping.DTO.AuthDetailsDTO;
 import com.relationShipMappig.relationShipMapping.DTO.DetailsDTO;
 import com.relationShipMappig.relationShipMapping.DTO.request.ServiceRequestBean;
@@ -170,7 +171,7 @@ public class AutherInfoServiceImpl implements AutherInfoService {
                 result.add(authDetailsDTOS1);
             }
 
-            query = this.entityManager.createNativeQuery("SELECT id,gender,email,contact,created_by,created_date,last_modified_by,last_modified_date FROM AUTHERDETAIL", Tuple.class);
+            query = this.entityManager.createNativeQuery("SELECT id,gender,email,contact,created_by,created_date,last_modified_by,last_modified_date,response_body_txt FROM AUTHERDETAIL", Tuple.class);
             log.info("query: " + query);
             List<Tuple> detailsList = query.getResultList();
             List<DetailsDTO> detailsDTOS = new ArrayList<>();
@@ -181,7 +182,8 @@ public class AutherInfoServiceImpl implements AutherInfoService {
                         + "\r\n" + tupleResult.get(1, String.class) + "\r\n" + tupleResult.get(2, String.class)
                         + "\r\n" + tupleResult.get(3, String.class) + "\r\n" + tupleResult.get(4, String.class)
                         + "\r\n" + tupleResult.get(5, Timestamp.class) + "\r\n" + tupleResult.get(6, String.class)
-                        + "\r\n" + tupleResult.get(7, Timestamp.class));
+                        + "\r\n" + tupleResult.get(7, Timestamp.class)
+                        + "\r\n" + tupleResult.get(8, String.class));
 
                 Timestamp createdDate = tupleResult.get(5, Timestamp.class);
                 String createdDateStr = createdDate.toString();
@@ -190,6 +192,11 @@ public class AutherInfoServiceImpl implements AutherInfoService {
                 log.info("createdDateStr---------------------->:" + createdDateStr);
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
+                String responseBodyTxtResponse = tupleResult.get(8, String.class);
+                log.info("responseBodyTxtResponse---------------------->:" + responseBodyTxtResponse);
+                AutherDetails reportMasterDatabaseList = this.objectMapper.readValue(responseBodyTxtResponse, new TypeReference<AutherDetails>() {
+                });
+                log.info("reportMasterDatabaseList---------------------->: " + reportMasterDatabaseList);
 
                 detailsDTOS.add(DetailsDTO.builder()
                         .id(String.valueOf(tupleResult.get(0, BigInteger.class)))
@@ -200,8 +207,17 @@ public class AutherInfoServiceImpl implements AutherInfoService {
                         .createdDate(createdDateStr)
                         .lastModifiedBy(tupleResult.get(6, String.class))
                         .lastModifiedDate(modifiedDateStr)
+                        .responseBodyTxt(reportMasterDatabaseList)
                         .build());
             }
+
+            Optional<AutherDetails> ListOfOutPut = this.autherDeatailsRepository.findById(1L);
+            /*Reading Json Response Using ObjectMapper*/
+            AutherDetails reportMasterDatabaseList = this.objectMapper.readValue(ListOfOutPut.get().getResponseBodyTxt(), new TypeReference<AutherDetails>() {
+            });
+            log.info("reportMasterDatabaseList: " + reportMasterDatabaseList);
+            log.info("\r\n id: " + reportMasterDatabaseList.getId() + "\r\n gender: " + reportMasterDatabaseList.getGender() + "\r\n email: " + reportMasterDatabaseList.getEmail());
+            log.info("contact of Id 1: " + ListOfOutPut.get().getContact());
 
             return ResponseEntity.ok(ServiceResponseBean.builder().data(detailsDTOS).status(Boolean.TRUE).message("Data recieved.").build());
             //return ResponseEntity.ok(ServiceResponseBean.builder().data(result).status(Boolean.TRUE).message("Data recieved.").build());
@@ -211,10 +227,9 @@ public class AutherInfoServiceImpl implements AutherInfoService {
         return ResponseEntity.ok(ServiceResponseBean.builder().message("No data exist").status(Boolean.FALSE).errorCode(716).build());
     }
 
-
     private void getDataByNativeQyery() {
         Query query;
-        query = this.entityManager.createNativeQuery("select * from autherdetail", Tuple.class); //, AutherDetails.class);
+        query = this.entityManager.createNativeQuery("select * from autherdetail", Tuple.class);
         log.info("Query: " + query);
         List<Tuple> tupleList = query.getResultList();
         log.info("tupleList: " + tupleList);
@@ -240,6 +255,7 @@ public class AutherInfoServiceImpl implements AutherInfoService {
     @Override
     public Object saveAutherData(ServiceRequestBean serviceRequestBean) throws JsonProcessingException {
         log.info("saveAutherData{} serviceRequestBean: " + serviceRequestBean);
+        /*Writing Json Response Using ObjectMappr*/
         String writeValueAsString = this.objectMapper.writeValueAsString(serviceRequestBean);
         serviceRequestBean.setResponseBodyTxt(writeValueAsString);
         AutherDetails autherDetails = autherdetailsPojjoEntityMapper.roleUserEntityPojo(serviceRequestBean);
