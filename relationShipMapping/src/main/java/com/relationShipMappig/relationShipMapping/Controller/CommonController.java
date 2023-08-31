@@ -228,6 +228,9 @@ public class CommonController {
 
     }
 
-
+    @GetMapping("/get/auther-college-info/tupple")
+    private ResponseEntity<?> getAutherCollegeDetails() {
+        return ResponseEntity.ok(this.autherInfoService.getAutherCollegeDetails());
+    }
 
 }

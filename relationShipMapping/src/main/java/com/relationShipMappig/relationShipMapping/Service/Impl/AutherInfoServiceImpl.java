@@ -3,6 +3,7 @@ package com.relationShipMappig.relationShipMapping.Service.Impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.relationShipMappig.relationShipMapping.DTO.AuthDetailsDTO;
+import com.relationShipMappig.relationShipMapping.DTO.CollegAutherDTO;
 import com.relationShipMappig.relationShipMapping.DTO.DetailsDTO;
 import com.relationShipMappig.relationShipMapping.DTO.request.ServiceRequestBean;
 import com.relationShipMappig.relationShipMapping.DTO.response.ServiceResponseBean;
@@ -261,5 +262,33 @@ public class AutherInfoServiceImpl implements AutherInfoService {
         AutherDetails autherDetails = autherdetailsPojjoEntityMapper.roleUserEntityPojo(serviceRequestBean);
         log.info("saveAutherData{} autherDetails: " + autherDetails);
         return this.autherDeatailsRepository.save(autherDetails);
+    }
+
+    @Override
+    public Object getAutherCollegeDetails() {
+        try {
+            log.info("getAutherCollegeDetails: {}");
+            Tuple autherCollegeList = this.autherDeatailsRepository.getAutherCollegeDetails("male", "VJTI");
+            log.info("autherCollegeList: {}"
+                    + "\r\n" + autherCollegeList.get(0, String.class)
+                    + "\r\n" + autherCollegeList.get(1, String.class)
+                    + "\r\n" + autherCollegeList.get(2, String.class)
+                    + "\r\n" + autherCollegeList.get(3, String.class)
+                    + "\r\n" + autherCollegeList.get(4, String.class)
+                    + "\r\n" + autherCollegeList.get(5, Timestamp.class));
+
+            CollegAutherDTO collegAutherDTO = CollegAutherDTO.builder()
+                    .collegeName(autherCollegeList.get(0, String.class))
+                    .collegeLocation(autherCollegeList.get(1, String.class))
+                    .contact(autherCollegeList.get(2, String.class))
+                    .email(autherCollegeList.get(3, String.class))
+                    .gender(autherCollegeList.get(4, String.class))
+                    .createdDate(String.valueOf(autherCollegeList.get(5, Timestamp.class)))
+                    .build();
+            return ResponseEntity.ok(ServiceResponseBean.builder().data(collegAutherDTO).status(Boolean.TRUE).message("Data recieved.").build());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return ResponseEntity.ok(ServiceResponseBean.builder().message("No data exist").status(Boolean.FALSE).errorCode(716).build());
     }
 }

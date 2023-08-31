@@ -41,5 +41,7 @@ public interface AutherDeatailsRepository extends JpaRepository<AutherDetails, L
     /* Data fetch using Derived Query*/
     List<AutherDetails> findByGenderNotNullOrderByIdDesc();
 
+    @Query("SELECT c.collegeName , c.collegeLocation, a.contact, a.email, a.gender, a.createdDate FROM College c INNER JOIN AutherDetails a ON a.id = c.collegeDevisionId Where c.collegeName=:collegeName and a.gender=:gender")
+    Tuple getAutherCollegeDetails(@Param("gender") String gender, @Param("collegeName") String collegeName);
 
 }

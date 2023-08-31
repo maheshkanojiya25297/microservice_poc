@@ -18,4 +18,6 @@ public interface AutherInfoService {
     Object getTupleData();
 
     Object saveAutherData(ServiceRequestBean serviceRequestBean) throws JsonProcessingException;
+
+    Object getAutherCollegeDetails();
 }
