@@ -21,6 +21,7 @@
         <module name="JavaSampleTest" />
         <module name="RatingService" />
         <module name="multiple-Db-Connectivity" />
+        <module name="jwtGeneration" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -45,6 +46,7 @@
       <module name="ZcrudUserService" options="-parameters" />
       <module name="ZcrudUserService (1)" options="-parameters" />
       <module name="ZcrudUserService (2)" options="-parameters" />
+      <module name="jwtGeneration" options="-parameters" />
       <module name="multiple-Db-Connectivity" options="-parameters" />
       <module name="redis-cache" options="-parameters" />
       <module name="relationShipMapping" options="-parameters" />

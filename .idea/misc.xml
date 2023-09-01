@@ -21,6 +21,7 @@
         <option value="$PROJECT_DIR$/KeyCloakSecureService/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-keyclock/pom.xml" />
         <option value="$PROJECT_DIR$/secure-springboot-keyclock/pom.xml" />
+        <option value="$PROJECT_DIR$/jwtGeneration/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
