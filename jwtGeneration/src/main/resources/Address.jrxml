@@ -43,7 +43,7 @@
                     <textElement>
                         <font size="42" isBold="false"/>
                     </textElement>
-                    <text><![CDATA[Mahesh InfoTech]]></text>
+                    <text><![CDATA[Cherry InfoTech]]></text>
                 </staticText>
                 <staticText>
                     <reportElement style="SubTitle" x="116" y="60" width="249" height="29"
@@ -58,7 +58,7 @@
                 <reportElement mode="Opaque" x="0" y="100" width="555" height="32" forecolor="#000000"
                                backcolor="#CC0000" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
                 <textField pattern="EEEEE dd MMMMM yyyy">
-                    <reportElement x="409" y="10" width="144" height="20" forecolor="#FFFFFF"
+                    <reportElement x="348" y="6" width="144" height="20" forecolor="#FFFFFF"
                                    uuid="5c3301e7-a737-4c59-8a2f-a6c79fd1adb8"/>
                     <textElement textAlignment="Right">
                         <font size="12"/>
@@ -66,7 +66,7 @@
                     <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
                 </textField>
                 <staticText>
-                    <reportElement x="360" y="10" width="73" height="20" forecolor="#FFFFFF"
+                    <reportElement x="292" y="6" width="73" height="20" forecolor="#FFFFFF"
                                    uuid="223b168c-14ff-41ff-9312-745989ac3b6e"/>
                     <textElement>
                         <font size="12"/>
