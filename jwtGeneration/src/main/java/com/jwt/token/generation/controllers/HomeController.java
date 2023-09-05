@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
@@ -61,4 +62,10 @@ public class HomeController {
         response.setHeader(headerKey, headerValue);
         addressService.exportJasperReport(response);
     }
+
+    @GetMapping("/report")
+    public String empReport() throws JRException, FileNotFoundException {
+        return addressService.generateReport();
+    }
+
 }

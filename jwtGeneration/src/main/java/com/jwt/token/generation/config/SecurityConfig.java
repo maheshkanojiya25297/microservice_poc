@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.disable())
                 .authorizeRequests(
                         auth -> auth.requestMatchers("/home/**").authenticated()
-                                .requestMatchers("auth/login", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/*", "home/user", "home/jasperpdf/export")
+                                .requestMatchers("auth/login", "rc/*", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/*", "home/user", "home/jasperpdf/export")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
