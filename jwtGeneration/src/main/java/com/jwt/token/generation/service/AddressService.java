@@ -7,17 +7,16 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.util.JRSaver;
 import net.sf.jasperreports.export.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
 import java.util.*;
 
 @Slf4j
@@ -33,12 +32,14 @@ public class AddressService {
     }
 
     public void exportJasperReport(HttpServletResponse response) throws IOException, JRException {
+
         log.info("Reading image----->: ");
         InputStream image = this.getClass().getClassLoader().getResourceAsStream("img/cherry.png");
         log.info("image----->: " + image);
         List<Address> addresses = this.addressRepository.findAll();
         log.info("Person address----->:" + addresses.get(0).getFirstname());
         File file = ResourceUtils.getFile("classpath:Address.jrxml");
+        log.info("file.getAbsolutePath()----------------------------------------->:"+file.getAbsolutePath());
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(addresses);
         log.info("jrBeanCollectionDataSource----->:" + jrBeanCollectionDataSource);
@@ -50,9 +51,11 @@ public class AddressService {
         log.info("jasperPrint----->:" + jasperPrint);
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
+
     }
 
     public String generateReport() throws FileNotFoundException, JRException {
+
         List<Address> listOfaddress = new ArrayList<>();
         log.info("listOfaddress\\" + listOfaddress + " \\");
         this.addressRepository.findAll().stream().forEach(address -> listOfaddress.add(address));
@@ -75,15 +78,13 @@ public class AddressService {
         xlsx(jasperPrint);
         csv(jasperPrint);
         return "Report successfully generated at location = C:\\temp\\";
-
     }
 
     private void csv(JasperPrint jasperPrint) throws JRException {
         JRCsvExporter exporter = new JRCsvExporter();
-
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput((WriterExporterOutput) new SimpleWriterExporterOutput("C:\\temp\\Address.csv"));
-        SimpleCsvExporterConfiguration  configuration = new SimpleCsvExporterConfiguration();
+        SimpleCsvExporterConfiguration configuration = new SimpleCsvExporterConfiguration();
         configuration.setFieldDelimiter(",");
         exporter.setConfiguration(configuration);
         exporter.exportReport();
@@ -91,7 +92,6 @@ public class AddressService {
 
     private void xlsx(JasperPrint jasperPrint) throws JRException {
         JRXlsxExporter exporter = new JRXlsxExporter();
-
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("C:\\temp\\Address.xlsx"));
         SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration();
@@ -100,6 +100,10 @@ public class AddressService {
         configuration.setDetectCellType(true);
         exporter.setConfiguration(configuration);
         exporter.exportReport();
+    }
+
+    public List<Address> fetchAddress() {
+       return this.addressRepository.findAll();
     }
 }
 
