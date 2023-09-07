@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,12 +149,13 @@ public class HomeController {
     }
 
     @GetMapping("/downloadCsv")
-    public ResponseEntity<ByteArrayResource> downloadCsvFile() throws FileNotFoundException, JRException {
+    public ResponseEntity<ByteArrayResource> downloadCsv() throws FileNotFoundException, JRException {
 
         JasperPrint jasperPrint = commonJasperPrint();
         System.out.println("Recieved jasperPrint from commonJasperPrint method {} : \r\n" + jasperPrint);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] csvBytes = null;
+
         JRCsvExporter exporter = new JRCsvExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput((WriterExporterOutput) new SimpleWriterExporterOutput(byteArrayOutputStream));
@@ -173,4 +175,31 @@ public class HomeController {
                 .contentLength(csvBytes.length)
                 .body(resource);
     }
+
+    @GetMapping("/downloadDocx")
+    public ResponseEntity<ByteArrayResource> downloadDocx() throws Exception {
+
+        JasperPrint jasperPrint = commonJasperPrint();
+        System.out.println("Recieved jasperPrint from commonJasperPrint methos {} : \r\n" + jasperPrint);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] docxByte = null;
+        JRDocxExporter exporter = new JRDocxExporter();
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+        SimpleDocxExporterConfiguration configuration = new SimpleDocxExporterConfiguration();
+        //configuration.setMetadataTitle("spicemok");
+        exporter.setConfiguration(configuration);
+        exporter.exportReport();
+        System.out.println("exporter {} : \r\n" + exporter);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", "DocxReport.docx");
+        System.out.println("headers {} : \r\n" + headers);
+        docxByte = outputStream.toByteArray();
+        ByteArrayResource resource = new ByteArrayResource(docxByte);
+        System.out.println("resource {} : \r\n" + resource);
+        return ResponseEntity.ok().headers(headers).contentLength(docxByte.length).body(resource);
+
+    }
+
 }
