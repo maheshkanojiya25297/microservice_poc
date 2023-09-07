@@ -2,7 +2,6 @@ package com.jwt.token.generation.controllers;
 
 import com.jwt.token.generation.model.Address;
 import com.jwt.token.generation.model.User;
-import com.jwt.token.generation.repositories.AddressRepository;
 import com.jwt.token.generation.service.AddressService;
 import com.jwt.token.generation.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,13 +13,11 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -75,7 +72,7 @@ public class HomeController {
         return addressService.generateReport();
     }
 
-    @GetMapping("/download")
+    @GetMapping("/downloadExcel")
     public ResponseEntity<ByteArrayResource> downloadExcel() throws FileNotFoundException, JRException {
         File file = ResourceUtils.getFile("classpath:address_info.jrxml");
         System.out.println("file\n" + file + " \n");
@@ -90,12 +87,12 @@ public class HomeController {
         System.out.println("params\n" + params + " \n");
         JasperPrint jasperPrint1 = JasperFillManager.fillReport(jasperPrint, params, jrBeanCollectionDataSource);
         System.out.println("jasperPrint1\n" + jasperPrint1 + " \n");
+
         byte[] excelBytes = null;
         JRXlsxExporter exporter = new JRXlsxExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint1));
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
-        //("C:\\temp\\Address.xlsx"));
         SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration();
         configuration.setOnePagePerSheet(true);
         configuration.setRemoveEmptySpaceBetweenColumns(true);
@@ -107,9 +104,73 @@ public class HomeController {
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", "report.xlsx");
         ByteArrayResource resource = new ByteArrayResource(excelBytes);
+
         return ResponseEntity.ok()
                 .headers(headers)
                 .contentLength(excelBytes.length)
+                .body(resource);
+    }
+
+    public JasperPrint commonJasperPrint() throws FileNotFoundException {
+        JasperPrint jasperPrint = null;
+        try {
+            File file = ResourceUtils.getFile("classpath:address_info.jrxml");
+            try {
+                if (file.exists()) {
+
+                    /* read the file and conveted into byte*/
+                    System.out.println("exist file size is : {} \r\n" + file.length());
+                    InputStream inputStream = new FileInputStream(file);
+                    System.out.println("inputStream : {} \r\n" + inputStream);
+                    JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+                    System.out.println("jasperReport: {} \r\n" + jasperReport);
+
+                    /* create Parameters*/
+                    Map<String, Object> parameters = new HashMap<>();
+                    //parameters.put("Created By: \r\n", "Mahesh");
+
+                    /* fetch Data*/
+                    List<Address> ls = this.addressService.fetchAddress();
+                    System.out.println("list of address: \r\n" + ls);
+                    JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(ls);
+
+                    /* create Jasper print*/
+                    jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrBeanCollectionDataSource);
+                    System.out.println("jasperPrint: \r\n" + jasperPrint);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jasperPrint;
+    }
+
+    @GetMapping("/downloadCsv")
+    public ResponseEntity<ByteArrayResource> downloadCsvFile() throws FileNotFoundException, JRException {
+
+        JasperPrint jasperPrint = commonJasperPrint();
+        System.out.println("Recieved jasperPrint from commonJasperPrint method {} : \r\n" + jasperPrint);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] csvBytes = null;
+        JRCsvExporter exporter = new JRCsvExporter();
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+        exporter.setExporterOutput((WriterExporterOutput) new SimpleWriterExporterOutput(byteArrayOutputStream));
+        SimpleCsvExporterConfiguration configuration = new SimpleCsvExporterConfiguration();
+        configuration.setFieldDelimiter(",");
+        exporter.setConfiguration(configuration);
+        exporter.exportReport();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        httpHeaders.setContentDispositionFormData("attachment", "CsvReport.csv");
+        csvBytes = byteArrayOutputStream.toByteArray();
+        ByteArrayResource resource = new ByteArrayResource(csvBytes);
+        System.out.println("resource {} : \r\n" + resource);
+
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .contentLength(csvBytes.length)
                 .body(resource);
     }
 }

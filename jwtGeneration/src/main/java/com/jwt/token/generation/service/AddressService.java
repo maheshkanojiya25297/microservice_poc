@@ -12,6 +12,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.util.JRSaver;
 import net.sf.jasperreports.export.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -39,7 +40,7 @@ public class AddressService {
         List<Address> addresses = this.addressRepository.findAll();
         log.info("Person address----->:" + addresses.get(0).getFirstname());
         File file = ResourceUtils.getFile("classpath:Address.jrxml");
-        log.info("file.getAbsolutePath()----------------------------------------->:"+file.getAbsolutePath());
+        log.info("file.getAbsolutePath()----------------------------------------->:" + file.getAbsolutePath());
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(addresses);
         log.info("jrBeanCollectionDataSource----->:" + jrBeanCollectionDataSource);
@@ -103,7 +104,8 @@ public class AddressService {
     }
 
     public List<Address> fetchAddress() {
-       return this.addressRepository.findAll();
+        return this.addressRepository.findAll();
     }
+
 }
 
