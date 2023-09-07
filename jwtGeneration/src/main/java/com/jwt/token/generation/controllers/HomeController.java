@@ -57,7 +57,7 @@ public class HomeController {
         return ResponseEntity.ok(this.addressService.getAddress());
     }
 
-    @GetMapping("/jasperpdf/export")
+    @GetMapping("/downloadPdf")
     public void createPDF(HttpServletResponse response) throws IOException, JRException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
@@ -75,6 +75,7 @@ public class HomeController {
 
     @GetMapping("/downloadExcel")
     public ResponseEntity<ByteArrayResource> downloadExcel() throws FileNotFoundException, JRException {
+
         File file = ResourceUtils.getFile("classpath:address_info.jrxml");
         System.out.println("file\n" + file + " \n");
         InputStream inputStream = new FileInputStream(file);
@@ -88,7 +89,6 @@ public class HomeController {
         System.out.println("params\n" + params + " \n");
         JasperPrint jasperPrint1 = JasperFillManager.fillReport(jasperPrint, params, jrBeanCollectionDataSource);
         System.out.println("jasperPrint1\n" + jasperPrint1 + " \n");
-
         byte[] excelBytes = null;
         JRXlsxExporter exporter = new JRXlsxExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint1));
@@ -103,13 +103,9 @@ public class HomeController {
         excelBytes = outputStream.toByteArray();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", "report.xlsx");
+        headers.setContentDispositionFormData("attachment", "ExcelReport.xlsx");
         ByteArrayResource resource = new ByteArrayResource(excelBytes);
-
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentLength(excelBytes.length)
-                .body(resource);
+        return ResponseEntity.ok().headers(headers).contentLength(excelBytes.length).body(resource);
     }
 
     public JasperPrint commonJasperPrint() throws FileNotFoundException {
@@ -155,7 +151,6 @@ public class HomeController {
         System.out.println("Recieved jasperPrint from commonJasperPrint method {} : \r\n" + jasperPrint);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] csvBytes = null;
-
         JRCsvExporter exporter = new JRCsvExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput((WriterExporterOutput) new SimpleWriterExporterOutput(byteArrayOutputStream));
@@ -169,11 +164,7 @@ public class HomeController {
         csvBytes = byteArrayOutputStream.toByteArray();
         ByteArrayResource resource = new ByteArrayResource(csvBytes);
         System.out.println("resource {} : \r\n" + resource);
-
-        return ResponseEntity.ok()
-                .headers(httpHeaders)
-                .contentLength(csvBytes.length)
-                .body(resource);
+        return ResponseEntity.ok().headers(httpHeaders).contentLength(csvBytes.length).body(resource);
     }
 
     @GetMapping("/downloadDocx")
@@ -183,14 +174,23 @@ public class HomeController {
         System.out.println("Recieved jasperPrint from commonJasperPrint methos {} : \r\n" + jasperPrint);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte[] docxByte = null;
+        /* exporter Object created for file download on api hit. */
         JRDocxExporter exporter = new JRDocxExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+
+        /* exporterlocal Object created for file store in local folder. */
+        JRDocxExporter exporterlocal = new JRDocxExporter();
+        exporterlocal.setExporterInput(new SimpleExporterInput(jasperPrint));
+        exporterlocal.setExporterOutput(new SimpleOutputStreamExporterOutput("C:\\temp\\DocxReport.docx"));
+
         SimpleDocxExporterConfiguration configuration = new SimpleDocxExporterConfiguration();
         //configuration.setMetadataTitle("spicemok");
         exporter.setConfiguration(configuration);
         exporter.exportReport();
-        System.out.println("exporter {} : \r\n" + exporter);
+        exporterlocal.exportReport();
+        System.out.println("exporter {} : \r\n" + exporter + "\r\n exporterlocal {} : \r\n" + exporterlocal);
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", "DocxReport.docx");
