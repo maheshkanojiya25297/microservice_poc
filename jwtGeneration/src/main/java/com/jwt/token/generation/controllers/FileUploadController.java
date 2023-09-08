@@ -29,7 +29,7 @@ public class FileUploadController {
 
     @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Response uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        log.info("single file upload : {}" );
+        log.info("single file upload method ivolked : {}" );
         String fileName = fileStorageService.storeFile(file);
         log.info("fileName: " + fileName);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -42,7 +42,7 @@ public class FileUploadController {
 
     @PostMapping("/uploadMultipleFiles")
     public List<Response> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        log.info("multiple file upload : {} " );
+        log.info("multiple file upload method ivolked : {} " );
         return Arrays.asList(files)
                 .stream()
                 .map(file -> {
