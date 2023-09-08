@@ -2,11 +2,14 @@ package com.jwt.token.generation.service;
 
 import com.jwt.token.generation.model.FileStorageProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,5 +33,12 @@ public class FileStorageService {
         log.info("target Location:" + targetLocation);
         Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
         return fileName;
+    }
+
+    public Resource loadFile(String fileName) throws MalformedURLException {
+        Path path = this.fileStoreLocation.resolve(fileName).normalize();
+        Resource resource = new UrlResource(path.toUri());
+        return resource;
+
     }
 }
