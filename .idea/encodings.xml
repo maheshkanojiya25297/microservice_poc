@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/ApiGateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ConfigServer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ConfigServer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/EmailServiceNotification/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/HazelCastCacheService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/HazelCastCacheService/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/HotelService/src/main/java" charset="UTF-8" />

@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="HotelService" />
+        <module name="EmailServiceNotification" />
         <module name="UserService" />
         <module name="HazelCastCacheService" />
         <module name="RedisCacheService" />
@@ -36,6 +37,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="-parameters" />
       <module name="ConfigServer" options="-parameters" />
+      <module name="EmailServiceNotification" options="-parameters" />
       <module name="HazelCastCacheService" options="-parameters" />
       <module name="HotelService" options="-parameters" />
       <module name="JavaSampleTest" options="-parameters" />
