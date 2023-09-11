@@ -18,16 +18,17 @@ public class EmailController {
     @PostMapping("/sendMail")
     public String sendMail(@RequestBody EmailDetails emailDetails) {
         log.info("sendMail--------------->: ");
-        String status = this.emailService.sendSimpleMail(emailDetails);
-        log.info("status----------------->:" +status);
-        return status;
+        for(int i = 0;i<=10;i++) {
+             this.emailService.sendSimpleMail(emailDetails);
+        }
+        return "Email Sent Successfully !";
     }
 
     @PostMapping("/sendMailWithAttachment")
     public String sendMailWithAttachment(@RequestBody EmailDetails emailDetails) {
         log.info("sendMailWithAttachment--------------->: ");
         String status = this.emailService.sendMailWithAttachment(emailDetails);
-        log.info("status----------------->:" +status);
+
         return status;
     }
 }
