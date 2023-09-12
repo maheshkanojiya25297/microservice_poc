@@ -40,12 +40,8 @@ public class EmailServiceImpl implements EmailService {
             log.info("emailDetails.getMsgBody(): " + emailDetails.getMsgBody());
             simpleMailMessage.setSubject(emailDetails.getSubject());
             log.info("emailDetails.getSubject(): " + emailDetails.getSubject());
-
-                javaMailSender.send(simpleMailMessage);
-                log.info("simpleMailMessage: " + simpleMailMessage);
-
-
-
+            javaMailSender.send(simpleMailMessage);
+            log.info("simpleMailMessage: " + simpleMailMessage);
             return "Mail Sent Successfully....";
         } catch (Exception e) {
             return "Error";
