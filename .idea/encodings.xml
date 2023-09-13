@@ -36,5 +36,7 @@
     <file url="file://$PROJECT_DIR$/secure-springboot-keyclock/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-keyclock/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-keyclock/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/twilioPushNotification/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/twilioPushNotification/src/main/resources" charset="UTF-8" />
   </component>
 </project>
