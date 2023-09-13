@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("api/smsOtp")
+@RequestMapping("smsOtp")
 public class Controller {
 
     private final Service service;
