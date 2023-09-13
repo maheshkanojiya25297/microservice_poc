@@ -22,6 +22,8 @@
         <option value="$PROJECT_DIR$/springboot-keyclock/pom.xml" />
         <option value="$PROJECT_DIR$/secure-springboot-keyclock/pom.xml" />
         <option value="$PROJECT_DIR$/jwtGeneration/pom.xml" />
+        <option value="$PROJECT_DIR$/EmailServiceNotification/pom.xml" />
+        <option value="$PROJECT_DIR$/twilioPushNotification/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

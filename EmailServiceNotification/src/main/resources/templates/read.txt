@@ -1,0 +1,24 @@
+
+//Post Url
+http://localhost:8080/sendMail
+
+
+//Payload Request
+{
+    "recipients" : "maheshkanojiya25297@gmail.com",
+    "msgBody" : "Hey! \n\nThis is a Simple Email \n\n Thanks",
+    "subject" : "simple Email Message"
+}
+
+
+//Post Url
+http://localhost:8080/sendMailWithAttachment
+
+
+//Payload Request
+{
+    "recipients" : "maheshkanojiya25297@gmail.com",
+    "msgBody" : "Hey! \n\nThis is a Simple Email \n\n Thanks",
+    "subject" : "simple Email Message",
+    "attachment" : "C:/Users/User/Documents/WorkSpace/latest_pull_repo/New folder/cherry.webp"
+}
