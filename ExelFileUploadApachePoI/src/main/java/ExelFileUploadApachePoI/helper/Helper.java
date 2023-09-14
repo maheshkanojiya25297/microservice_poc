@@ -1,6 +1,7 @@
 package ExelFileUploadApachePoI.helper;
 
 import ExelFileUploadApachePoI.entities.Product;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Slf4j
 public class Helper {
 
     public static boolean checkExcelFormat(MultipartFile file) {
@@ -42,6 +44,8 @@ public class Helper {
                 int cid = 0;
                 while (cells.hasNext()) {
                     Cell cell = cells.next();
+                    log.info("cell: " + cell);
+
                     switch (cid) {
                         case 0:
                             product.setProductId((int) cell.getNumericCellValue());
