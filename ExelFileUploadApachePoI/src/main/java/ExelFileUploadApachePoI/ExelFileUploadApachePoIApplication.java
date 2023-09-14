@@ -9,7 +9,7 @@ public class ExelFileUploadApachePoIApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(ExelFileUploadApachePoIApplication.class, args);
-		System.out.println("Application started ):");
+		System.out.println("Application started !");
 	}
 
 }
