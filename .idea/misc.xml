@@ -24,6 +24,7 @@
         <option value="$PROJECT_DIR$/jwtGeneration/pom.xml" />
         <option value="$PROJECT_DIR$/EmailServiceNotification/pom.xml" />
         <option value="$PROJECT_DIR$/twilioPushNotification/pom.xml" />
+        <option value="$PROJECT_DIR$/ExelFileUploadApachePoI/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

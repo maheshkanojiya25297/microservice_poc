@@ -18,6 +18,7 @@
         <module name="springboot-keyclock" />
         <module name="relationShipMapping" />
         <module name="ApiGateway" />
+        <module name="ExelFileUploadApachePoI" />
         <module name="ConfigServer" />
         <module name="ServiceRegistry" />
         <module name="JavaSampleTest" />
@@ -39,6 +40,7 @@
       <module name="ApiGateway" options="-parameters" />
       <module name="ConfigServer" options="-parameters" />
       <module name="EmailServiceNotification" options="-parameters" />
+      <module name="ExelFileUploadApachePoI" options="-parameters" />
       <module name="HazelCastCacheService" options="-parameters" />
       <module name="HotelService" options="-parameters" />
       <module name="JavaSampleTest" options="-parameters" />
