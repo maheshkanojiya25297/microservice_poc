@@ -2,10 +2,13 @@
 //Twilio Url
 https://console.twilio.com/?frameUrl=%2Fconsole%3Fx-target-region%3Dus1
 
-
+recovery code : 5LVGSK8EAZFJ89298T1XK9H2
+Twilio Email : mahesh.kanojiya@neosoftmail.com
 Twilio UserName : Mahesh
 Twilio Password : Z$AMuRXP(6JRH3DYUTYUTUYU
-Twilio Phone Number : +13866751880
+Twilio Phone Number : +18565954082
+
+
 
 
 //Post Url
