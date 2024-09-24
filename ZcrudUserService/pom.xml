@@ -14,9 +14,12 @@
     <name>ZcrudUserService</name>
     <description>This is User Micro Service</description>
     <properties>
-        <java.version>19</java.version>
+        <java.version>17</java.version>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

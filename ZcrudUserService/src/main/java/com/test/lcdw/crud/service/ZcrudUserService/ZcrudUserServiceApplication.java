@@ -11,7 +11,7 @@ public class ZcrudUserServiceApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(ZcrudUserServiceApplication.class, args);
-		System.out.println("crud service running ..........");
+		System.out.println("The Crud Service Processing..");
 	}
 
 }
