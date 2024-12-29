@@ -16,7 +16,7 @@ public class EmployeeFiltering {
                 new Employee(5, "Michael Brown", "New York", 55000, new Department(1, "IT"))
         );
 
-        // Filter employees by city and salary using Stream API
+        // 1 Filter employees by city and salary using Stream API
         List<Employee> filteredEmployees = employees.stream()
                 .filter(e -> e.getCity().equals("New York"))
                 .filter(e -> e.getSalary() > 50000)
@@ -26,7 +26,7 @@ public class EmployeeFiltering {
         // Print the filtered employees
         filteredEmployees.forEach(e -> System.out.println("The Final Output is:  "+ e.getName()+ " , " +e.getCity()));
 
-        // Find the average salary of employees in a department
+        //2 Find the average salary of employees in a department
 
         double averageSalary = employees.stream()
                                .filter(e->e.getDepartment().getName().equals("IT"))
@@ -38,12 +38,14 @@ public class EmployeeFiltering {
 
 
 
-        //Sort employees by salary in descending order.
+        //3 Sort employees by salary in descending order.
 
-        List <Employee> descSalary = employees.stream().sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).collect(Collectors.toList());
+        List <Employee> descSalary = employees.stream()
+                .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
+                .collect(Collectors.toList());
         descSalary.forEach(dSalary->System.out.println("descSalary : " +dSalary.getSalary()));
 
-        //fetch max salary only
+        //4 fetch max salary only
         Optional<Employee> topSalary = descSalary.stream().findFirst();
         if(topSalary.isPresent()){
             Employee emp = topSalary.get();
@@ -53,9 +55,11 @@ public class EmployeeFiltering {
             System.out.println("No Data Found");
         }
 
-        //Group employees by department.
+        //5 Group employees by department.
 
-        Map<String, List<Employee>> groupEmp= employees.stream().collect(Collectors.groupingBy(e->e.getDepartment().getName()));
+        Map<String, List<Employee>> groupEmp= employees.stream()
+                .collect(Collectors.groupingBy(e->e.getDepartment().getName()));
+
         //using lambda you can avoid iteration of map
         groupEmp.forEach((department, employees1) -> {
             System.out.println("Department: " + department);
@@ -72,13 +76,36 @@ public class EmployeeFiltering {
         }*/
 
 
-        // Find the highest paid employee in each department.
-        Map<String, Optional<Employee>> highPaid = employees.stream().collect(Collectors.groupingBy(e->e.getDepartment().getName(),
+        //6 Find the highest paid employee in each department.
+        Map<String, Optional<Employee>> highPaid = employees.stream()
+                .collect(Collectors.groupingBy(e->e.getDepartment().getName(),
                 Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))));
 
         highPaid.forEach((dept,empl)->{
             System.out.println("dept: " +dept+ " , name: " +empl.get().getName());
         });
+
+      //7 Calculate the total salary of all employees.
+       double totalSalary = employees.stream().mapToDouble(Employee::getSalary).sum();
+
+       //8 Find the number of employees in each department
+       Map<String, Long> employeeCountByDepartment = employees.stream()
+               .collect(Collectors.groupingBy(e->e.getDepartment().getName(), Collectors.counting()));
+       employeeCountByDepartment.forEach((dep, count)->{
+           System.out.println("Department: " +dep+" having cout: " +count);
+       });
+
+       //9 Remove duplicates from a list of strings.
+        List<Employee> distinctStrings = employees.stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        distinctStrings.forEach(e->System.out.println(e.getName() +" : " + e.getDepartment().getName()));
+
+        //10 Check if a list contains a specific element.
+        boolean containsElement = employees.stream()
+                .anyMatch(s -> s.getName().equals("John Doe"));
+        System.out.println("ans: " +containsElement);
 
 
     }
