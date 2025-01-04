@@ -172,7 +172,7 @@ public class EmployeeFiltering {
         System.out.println("Element Frequencies:");
         frequencyMap.forEach((key, value) -> System.out.println(key + ": " + value));
 
-        //12 frequency of given array element with String mahesh
+        //13 frequency of given array element with String mahesh
         String str = "mahesh";
         System.out.println("string is :" +str);
         long maxFrequency1= str.chars()
@@ -199,6 +199,36 @@ public class EmployeeFiltering {
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
         System.out.println("Character Frequencies:");
         frequencyMap1.forEach((character, count) -> System.out.println(character + ": " + count)); //O(n)
+
+        //calculate the maximum profit
+
+        int[] prices = {1, 4, 6, 7};
+        System.out.println("prices:" +Arrays.toString(prices));
+        int maxProfit = 0;
+        int minPrice = Integer.MAX_VALUE; // Initialize minPrice to a high value
+        System.out.println("minPrice:" +minPrice);
+        for (int price : prices) {
+            minPrice = Math.min(minPrice, price); // Update minPrice if a lower price is found
+            maxProfit = Math.max(maxProfit, price - minPrice); // Calculate potential profit at each price
+        }
+        System.out.println("maxProfit:" +maxProfit);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }
