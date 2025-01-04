@@ -1,7 +1,9 @@
 package com.java8;
 
 import javax.swing.*;
+import javax.swing.text.html.Option;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
@@ -16,6 +18,7 @@ public class EmployeeFiltering {
                 new Employee(5, "Michael Brown", "New York", 55000, new Department(1, "IT"))
         );
 
+        System.out.println("Filter employees by city and salary using Stream API:--");
         // 1 Filter employees by city and salary using Stream API
         List<Employee> filteredEmployees = employees.stream()
                 .filter(e -> e.getCity().equals("New York"))
@@ -26,26 +29,24 @@ public class EmployeeFiltering {
         // Print the filtered employees
         filteredEmployees.forEach(e -> System.out.println("The Final Output is:  "+ e.getName()+ " , " +e.getCity()));
 
-        //2 Find the average salary of employees in a department
-
+        System.out.println("Find the average salary of employees in a department:--");
+        //2 Find the average salary of employees in IT department
         double averageSalary = employees.stream()
                                .filter(e->e.getDepartment().getName().equals("IT"))
                                .mapToDouble(Employee::getSalary)
                                .average()
                                .orElse(00);
-
         System.out.println("averageSalary : " +averageSalary);
 
-
-
+        System.out.println("Sort employees by salary in descending order:--");
         //3 Sort employees by salary in descending order.
-
         List <Employee> descSalary = employees.stream()
                 .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
                 .collect(Collectors.toList());
         descSalary.forEach(dSalary->System.out.println("descSalary : " +dSalary.getSalary()));
 
-        //4 fetch max salary only
+        System.out.println("fetch max salary only:--");
+        // fetch max salary only
         Optional<Employee> topSalary = descSalary.stream().findFirst();
         if(topSalary.isPresent()){
             Employee emp = topSalary.get();
@@ -55,6 +56,17 @@ public class EmployeeFiltering {
             System.out.println("No Data Found");
         }
 
+        System.out.println("Find the highest paid employee in each department.:--");
+        //4 Find the highest paid employee in each department.
+        Map<String, Optional<Employee>> highPaid = employees.stream()
+                .collect(Collectors.groupingBy(e->e.getDepartment().getName(),
+                        Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))));
+
+        highPaid.forEach((dept,empl)->{
+            System.out.println("dept: " +dept+ " , name: " +empl.get().getName());
+        });
+
+        System.out.println("Group employees by department:--");
         //5 Group employees by department.
 
         Map<String, List<Employee>> groupEmp= employees.stream()
@@ -76,41 +88,72 @@ public class EmployeeFiltering {
         }*/
 
 
-        //6 Find the highest paid employee in each department.
-        Map<String, Optional<Employee>> highPaid = employees.stream()
-                .collect(Collectors.groupingBy(e->e.getDepartment().getName(),
-                Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))));
 
-        highPaid.forEach((dept,empl)->{
-            System.out.println("dept: " +dept+ " , name: " +empl.get().getName());
+        System.out.println("Calculate the total salary of all employees:--");
+        //6 Calculate the total salary of all employees.
+        double totalSalary = employees.stream()
+                                       .mapToDouble(Employee::getSalary)
+                                       .sum();
+        System.out.println("totalSalary:" +totalSalary);
+
+        System.out.println("Find the number of employees in each department:--");
+        //7 Find the number of employees in each department
+        Map<String, Long> employeeCountByDepartment =
+                employees.stream()
+                          .collect(Collectors.groupingBy(e->e.getDepartment().getName(),
+                                   Collectors.counting()));
+
+        employeeCountByDepartment.forEach((dep, count)->{
+           System.out.println("Department: " +dep+" having cout: " +count);
         });
 
-      //7 Calculate the total salary of all employees.
-       double totalSalary = employees.stream().mapToDouble(Employee::getSalary).sum();
-
-       //8 Find the number of employees in each department
-       Map<String, Long> employeeCountByDepartment = employees.stream()
-               .collect(Collectors.groupingBy(e->e.getDepartment().getName(), Collectors.counting()));
-       employeeCountByDepartment.forEach((dep, count)->{
-           System.out.println("Department: " +dep+" having cout: " +count);
-       });
-
-       //9 Remove duplicates from a list of strings.
+        System.out.println("Remove duplicates from a list of strings:--");
+        //8 Remove duplicates from a list of strings.
         List<Employee> distinctStrings = employees.stream()
                 .distinct()
                 .collect(Collectors.toList());
 
         distinctStrings.forEach(e->System.out.println(e.getName() +" : " + e.getDepartment().getName()));
 
-        //10 Check if a list contains a specific element.
+        System.out.println("Check if a list contains a specific element:--");
+        //9 Check if a list contains a specific element.
         boolean containsElement = employees.stream()
-                .anyMatch(s -> s.getName().equals("John Doe"));
+                                           .anyMatch(s -> s.getName().equals("John Doe"));
         System.out.println("ans: " +containsElement);
 
+        //10  Given a String, find the first repeated character in it using Stream functions?
+        String input = "mahesh is best java developer";
 
+        Character result = input
+                .chars()
+                .mapToObj(s->Character.toLowerCase(Character.valueOf((char) s)))
+                .collect(Collectors.groupingBy(Function.identity(),LinkedHashMap::new, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(entry->entry.getValue()>1L)
+                .map(entry->entry.getKey())
+                .findFirst()
+                .get();
+        System.out.println("first repeater character is :" +result);
+
+
+
+
+        //11  Given a String, find the first non-repeated character in it using Stream functions?
+        Character output = input
+                .chars()
+                .mapToObj(c->Character.toLowerCase(Character.valueOf((char) c)))
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(entry->entry.getValue()==1L)
+                .map(entry->entry.getKey())
+                .findFirst()
+                .get();
+
+        System.out.println("the non-repeated character are: " +output);
     }
 }
-
 
 
 
