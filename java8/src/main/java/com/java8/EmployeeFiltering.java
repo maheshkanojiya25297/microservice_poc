@@ -23,54 +23,53 @@ public class EmployeeFiltering {
         List<Employee> filteredEmployees = employees.stream()
                 .filter(e -> e.getCity().equals("New York"))
                 .filter(e -> e.getSalary() > 50000)
-                .filter(e->e.getDepartment().getName().equals("IT"))
+                .filter(e -> e.getDepartment().getName().equals("IT"))
                 .collect(Collectors.toList());
 
         // Print the filtered employees
-        filteredEmployees.forEach(e -> System.out.println("The Final Output is:  "+ e.getName()+ " , " +e.getCity()));
+        filteredEmployees.forEach(e -> System.out.println("The Final Output is:  " + e.getName() + " , " + e.getCity()));
 
         System.out.println("Find the average salary of employees in a department:--");
         //2 Find the average salary of employees in IT department
         double averageSalary = employees.stream()
-                               .filter(e->e.getDepartment().getName().equals("IT"))
-                               .mapToDouble(Employee::getSalary)
-                               .average()
-                               .orElse(00);
-        System.out.println("averageSalary : " +averageSalary);
+                .filter(e -> e.getDepartment().getName().equals("IT"))
+                .mapToDouble(Employee::getSalary)
+                .average()
+                .orElse(00);
+        System.out.println("averageSalary : " + averageSalary);
 
         System.out.println("Sort employees by salary in descending order:--");
         //3 Sort employees by salary in descending order.
-        List <Employee> descSalary = employees.stream()
+        List<Employee> descSalary = employees.stream()
                 .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
                 .collect(Collectors.toList());
-        descSalary.forEach(dSalary->System.out.println("descSalary : " +dSalary.getSalary()));
+        descSalary.forEach(dSalary -> System.out.println("descSalary : " + dSalary.getSalary()));
 
         System.out.println("fetch max salary only:--");
         // fetch max salary only
         Optional<Employee> topSalary = descSalary.stream().findFirst();
-        if(topSalary.isPresent()){
+        if (topSalary.isPresent()) {
             Employee emp = topSalary.get();
-            System.out.println("Top empSalary: " +emp.getSalary()+" empName: "+emp.getName());
-        }
-        else{
+            System.out.println("Top empSalary: " + emp.getSalary() + " empName: " + emp.getName());
+        } else {
             System.out.println("No Data Found");
         }
 
         System.out.println("Find the highest paid employee in each department.:--");
         //4 Find the highest paid employee in each department.
         Map<String, Optional<Employee>> highPaid = employees.stream()
-                .collect(Collectors.groupingBy(e->e.getDepartment().getName(),
+                .collect(Collectors.groupingBy(e -> e.getDepartment().getName(),
                         Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))));
 
-        highPaid.forEach((dept,empl)->{
-            System.out.println("dept: " +dept+ " , name: " +empl.get().getName());
+        highPaid.forEach((dept, empl) -> {
+            System.out.println("dept: " + dept + " , name: " + empl.get().getName());
         });
 
         System.out.println("Group employees by department:--");
         //5 Group employees by department.
 
-        Map<String, List<Employee>> groupEmp= employees.stream()
-                .collect(Collectors.groupingBy(e->e.getDepartment().getName()));
+        Map<String, List<Employee>> groupEmp = employees.stream()
+                .collect(Collectors.groupingBy(e -> e.getDepartment().getName()));
 
         //using lambda you can avoid iteration of map
         groupEmp.forEach((department, employees1) -> {
@@ -88,23 +87,22 @@ public class EmployeeFiltering {
         }*/
 
 
-
         System.out.println("Calculate the total salary of all employees:--");
         //6 Calculate the total salary of all employees.
         double totalSalary = employees.stream()
-                                       .mapToDouble(Employee::getSalary)
-                                       .sum();
-        System.out.println("totalSalary:" +totalSalary);
+                .mapToDouble(Employee::getSalary)
+                .sum();
+        System.out.println("totalSalary:" + totalSalary);
 
         System.out.println("Find the number of employees in each department:--");
         //7 Find the number of employees in each department
         Map<String, Long> employeeCountByDepartment =
                 employees.stream()
-                          .collect(Collectors.groupingBy(e->e.getDepartment().getName(),
-                                   Collectors.counting()));
+                        .collect(Collectors.groupingBy(e -> e.getDepartment().getName(),
+                                Collectors.counting()));
 
-        employeeCountByDepartment.forEach((dep, count)->{
-           System.out.println("Department: " +dep+" having cout: " +count);
+        employeeCountByDepartment.forEach((dep, count) -> {
+            System.out.println("Department: " + dep + " having cout: " + count);
         });
 
         System.out.println("Remove duplicates from a list of strings:--");
@@ -113,61 +111,97 @@ public class EmployeeFiltering {
                 .distinct()
                 .collect(Collectors.toList());
 
-        distinctStrings.forEach(e->System.out.println(e.getName() +" : " + e.getDepartment().getName()));
+        distinctStrings.forEach(e -> System.out.println(e.getName() + " : " + e.getDepartment().getName()));
 
         System.out.println("Check if a list contains a specific element:--");
         //9 Check if a list contains a specific element.
         boolean containsElement = employees.stream()
-                                           .anyMatch(s -> s.getName().equals("John Doe"));
-        System.out.println("ans: " +containsElement);
+                .anyMatch(s -> s.getName().equals("John Doe"));
+        System.out.println("ans: " + containsElement);
 
         //10  Given a String, find the first repeated character in it using Stream functions?
         String input = "mahesh is best java developer";
 
         Character result = input
                 .chars()
-                .mapToObj(s->Character.toLowerCase(Character.valueOf((char) s)))
-                .collect(Collectors.groupingBy(Function.identity(),LinkedHashMap::new, Collectors.counting()))
+                .mapToObj(s -> Character.toLowerCase(Character.valueOf((char) s)))
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
                 .entrySet()
                 .stream()
-                .filter(entry->entry.getValue()>1L)
-                .map(entry->entry.getKey())
+                .filter(entry -> entry.getValue() > 1L)
+                .map(entry -> entry.getKey())
                 .findFirst()
                 .get();
-        System.out.println("first repeater character is :" +result);
-
-
+        System.out.println("first repeater character is :" + result);
 
 
         //11  Given a String, find the first non-repeated character in it using Stream functions?
         Character output = input
                 .chars()
-                .mapToObj(c->Character.toLowerCase(Character.valueOf((char) c)))
+                .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
                 .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
                 .entrySet()
                 .stream()
-                .filter(entry->entry.getValue()==1L)
-                .map(entry->entry.getKey())
+                .filter(entry -> entry.getValue() == 1L)
+                .map(entry -> entry.getKey())
                 .findFirst()
                 .get();
 
-        System.out.println("the non-repeated character are: " +output);
+        System.out.println("the non-repeated character are: " + output);
+
+
+        //12 Maximum frequency of given array element with int values
+        int[] arr = {1, 3, 1, 1, 4, 1, 1, 5, 1, 2, 2};
+        System.out.println("The array element is: " + Arrays.toString(arr));
+
+        int maxFrequency = Arrays.stream(arr)
+                .boxed()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .max(java.util.Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(0);
+
+        System.out.println("The maximum frequency of element is: " + maxFrequency); //O(n)  average case
+
+
+        Map<Integer, Long> frequencyMap = Arrays.stream(arr)
+                .boxed()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
+        System.out.println("Element Frequencies:");
+        frequencyMap.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        //12 frequency of given array element with String mahesh
+        String str = "mahesh";
+        System.out.println("string is :" +str);
+        long maxFrequency1= str.chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .mapToLong(Map.Entry::getValue)
+                .max()
+                .orElse(0);
+        System.out.println("Maximum Frequency: " + maxFrequency1); //O(n)
+
+        Optional<Character> maxFreqChar = str.chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey);
+
+        System.out.println("Character with Max Frequency: " + maxFreqChar.orElse(' ')); //O(n)
+
+        Map<String, Long> frequencyMap1 = Arrays.stream(str.split(""))
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
+        System.out.println("Character Frequencies:");
+        frequencyMap1.forEach((character, count) -> System.out.println(character + ": " + count)); //O(n)
+
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 class Employee {
@@ -250,7 +284,6 @@ class Department {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
     public Department(int id, String name) {
