@@ -1,6 +1,9 @@
 package com.java8;
 
+import com.sun.jdi.Value;
+
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.function.Function;
@@ -165,6 +168,16 @@ public class EmployeeFiltering {
 
         System.out.println("The maximum frequency of element is: " + maxFrequency); //O(n)  average case
 
+        Long maxFreValue = Arrays.stream(arr)
+                .boxed()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .mapToLong(Map.Entry::getValue)
+                .max()
+                .orElse(0);
+
+        System.out.println("maximum frequency value of element is: " + maxFreValue); //O(n)  average case
 
         Map<Integer, Long> frequencyMap = Arrays.stream(arr)
                 .boxed()
@@ -174,8 +187,8 @@ public class EmployeeFiltering {
 
         //13 frequency of given array element with String mahesh
         String str = "mahesh";
-        System.out.println("string is :" +str);
-        long maxFrequency1= str.chars()
+        System.out.println("string is :" + str);
+        long maxFrequency1 = str.chars()
                 .mapToObj(c -> (char) c)
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()))
                 .entrySet()
@@ -200,37 +213,49 @@ public class EmployeeFiltering {
         System.out.println("Character Frequencies:");
         frequencyMap1.forEach((character, count) -> System.out.println(character + ": " + count)); //O(n)
 
-        //calculate the maximum profit
+        //14 calculate the maximum profit
 
         int[] prices = {1, 4, 6, 7};
-        System.out.println("prices:" +Arrays.toString(prices));
+        System.out.println("prices:" + Arrays.toString(prices));
         int maxProfit = 0;
         int minPrice = Integer.MAX_VALUE; // Initialize minPrice to a high value
-        System.out.println("minPrice:" +minPrice);
+        System.out.println("minPrice:" + minPrice);
         for (int price : prices) {
             minPrice = Math.min(minPrice, price); // Update minPrice if a lower price is found
             maxProfit = Math.max(maxProfit, price - minPrice); // Calculate potential profit at each price
         }
-        System.out.println("maxProfit:" +maxProfit);
+        System.out.println("maxProfit:" + maxProfit);
 
 
+        //15 find the first repeated int value from int array int[] arr = {1, 3, 1, 1, 4, 1, 1, 5, 1, 2, 2};
 
+        Map<Integer, Long> firstRepeatedInt = Arrays.stream(arr).boxed().collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
+        firstRepeatedInt.forEach((key, value) -> System.out.println(key + " : " + value));
+        for (int num : arr) {
+            if (firstRepeatedInt.get(num) > 1L) {
+                System.out.println("first repeated int value is :" + num);
+                break;
+            }
+        }
 
+        //16 find the first non-repeated int value from int array int[] arr = {1, 3, 1, 1, 4, 1, 1, 5, 1, 2, 2};
 
+        Map<Integer, Long> firstNonRepeatedIntValue = Arrays.stream(arr)
+                .boxed()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
 
+        for (int num : arr) {
+            if (firstNonRepeatedIntValue.get(num) == 1L) {
+                System.out.println("first non repeated int value is : " + num);
+                break;
+            }
+        }
 
-
-
-
-
-
-
-
-
-
+        System.out.println("==========================================================================================================================");
 
 
     }
+
 }
 
 
