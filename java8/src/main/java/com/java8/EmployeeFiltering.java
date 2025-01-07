@@ -122,96 +122,6 @@ public class EmployeeFiltering {
                 .anyMatch(s -> s.getName().equals("John Doe"));
         System.out.println("ans: " + containsElement);
 
-        //10  Given a String, find the first repeated character in it using Stream functions?
-        String input = "mahesh is best java developer";
-
-        Character result = input
-                .chars()
-                .mapToObj(s -> Character.toLowerCase(Character.valueOf((char) s)))
-                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
-                .entrySet()
-                .stream()
-                .filter(entry -> entry.getValue() > 1L)
-                .map(entry -> entry.getKey())
-                .findFirst()
-                .get();
-        System.out.println("first repeater character is :" + result);
-
-
-        //11  Given a String, find the first non-repeated character in it using Stream functions?
-        Character output = input
-                .chars()
-                .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
-                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
-                .entrySet()
-                .stream()
-                .filter(entry -> entry.getValue() == 1L)
-                .map(entry -> entry.getKey())
-                .findFirst()
-                .get();
-
-        System.out.println("the non-repeated character are: " + output);
-
-
-        //12 Maximum frequency of given array element with int values
-        int[] arr = {1, 3, 1, 1, 4, 1, 1, 5, 1, 2, 2};
-        System.out.println("The array element is: " + Arrays.toString(arr));
-
-        int maxFrequency = Arrays.stream(arr)
-                .boxed()
-                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()))
-                .entrySet()
-                .stream()
-                .max(java.util.Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse(0);
-
-        System.out.println("The maximum frequency of element is: " + maxFrequency); //O(n)  average case
-
-        Long maxFreValue = Arrays.stream(arr)
-                .boxed()
-                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()))
-                .entrySet()
-                .stream()
-                .mapToLong(Map.Entry::getValue)
-                .max()
-                .orElse(0);
-
-        System.out.println("maximum frequency value of element is: " + maxFreValue); //O(n)  average case
-
-        Map<Integer, Long> frequencyMap = Arrays.stream(arr)
-                .boxed()
-                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
-        System.out.println("Element Frequencies:");
-        frequencyMap.forEach((key, value) -> System.out.println(key + ": " + value));
-
-        //13 frequency of given array element with String mahesh
-        String str = "mahesh";
-        System.out.println("string is :" + str);
-        long maxFrequency1 = str.chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.groupingBy(c -> c, Collectors.counting()))
-                .entrySet()
-                .stream()
-                .mapToLong(Map.Entry::getValue)
-                .max()
-                .orElse(0);
-        System.out.println("Maximum Frequency: " + maxFrequency1); //O(n)
-
-        Optional<Character> maxFreqChar = str.chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.groupingBy(c -> c, Collectors.counting()))
-                .entrySet()
-                .stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey);
-
-        System.out.println("Character with Max Frequency: " + maxFreqChar.orElse(' ')); //O(n)
-
-        Map<String, Long> frequencyMap1 = Arrays.stream(str.split(""))
-                .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
-        System.out.println("Character Frequencies:");
-        frequencyMap1.forEach((character, count) -> System.out.println(character + ": " + count)); //O(n)
 
         //14 calculate the maximum profit
 
@@ -227,35 +137,126 @@ public class EmployeeFiltering {
         System.out.println("maxProfit:" + maxProfit);
 
 
-        //15 find the first repeated int value from int array int[] arr = {1, 3, 1, 1, 4, 1, 1, 5, 1, 2, 2};
+        System.out.println("***********************************************************************************************lets start with some Java 8 features codding Practise !!");
+        System.out.println("[1] find the first non-repeated character in it using Stream functions with int valaues = {1,2,2,4,1,5,5}");
 
-        Map<Integer, Long> firstRepeatedInt = Arrays.stream(arr).boxed().collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
-        firstRepeatedInt.forEach((key, value) -> System.out.println(key + " : " + value));
-        for (int num : arr) {
-            if (firstRepeatedInt.get(num) > 1L) {
-                System.out.println("first repeated int value is :" + num);
-                break;
-            }
-        }
-
-        //16 find the first non-repeated int value from int array int[] arr = {1, 3, 1, 1, 4, 1, 1, 5, 1, 2, 2};
-
-        Map<Integer, Long> firstNonRepeatedIntValue = Arrays.stream(arr)
+        int[] intValues = {1, 2, 2, 2, 2, 4, 1, 5, 5};
+        Map<Integer, Long> firstNonRepeatedIntFromArray = Arrays.stream(intValues)
                 .boxed()
                 .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
 
-        for (int num : arr) {
-            if (firstNonRepeatedIntValue.get(num) == 1L) {
-                System.out.println("first non repeated int value is : " + num);
+        firstNonRepeatedIntFromArray.forEach((k, v) -> {
+            System.out.println(k + " : " + v);
+        });
+        for (int val : intValues) {
+            if (firstNonRepeatedIntFromArray.get(val) == 1L) {
+                System.out.println("first non-repeated character found :-" + val);
                 break;
             }
         }
 
-        System.out.println("==========================================================================================================================");
+        System.out.println("[2] Given a String, find the first non-repeated character in it using Stream functions? String str= mahesh ");
+        String strValues = "mahesh";
+        Character firstNonRepeatedCharFromString = strValues.chars()
+                .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() == 1L)
+                .map(entry -> entry.getKey())
+                .findFirst()
+                .get();
+        System.out.println("first non-repeated character found: " + firstNonRepeatedCharFromString);
 
+        System.out.println("[3] find the first repeated character in given string t using Stream functions with intvalaues = {1,2,2,4,1,5,5}");
+        Map<Integer, Long> firstRepeatedIntFromArray = Arrays.stream(intValues)
+                .boxed()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
 
+        firstRepeatedIntFromArray.forEach((k, v) -> {
+            System.out.println(k + " : " + v);
+        });
+        for (int val : intValues) {
+            if (firstRepeatedIntFromArray.get(val) > 1L) {
+                System.out.println("first repeated character found: " + val);
+                break;
+            }
+        }
+
+        System.out.println("[4] Given a String, find the first repeated character in it using Stream functions? String str= mahesh ");
+        Character firstRepeatedCharFromString = strValues.chars()
+                .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() > 1L)
+                .map(entry -> entry.getKey())
+                .findFirst()
+                .get();
+        System.out.println("first repeated character found: " + firstRepeatedCharFromString);
+
+        System.out.println("[5] find the frequency of given array element with int [] intvalaues = {1,2,2,4,1,5,5}");
+        Map<Integer, Long> frequencyOfeachElementOfIntValus = Arrays.stream(intValues)
+                .boxed()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
+        System.out.println("frequency of each element are :");
+        frequencyOfeachElementOfIntValus.forEach((k, v) -> {
+            System.out.println(k + " : " + v);
+        });
+
+        System.out.println("[6] find the frequency of character of given String = mahesh");
+        Map<String, Long> frequencyOfeachElementOfStrValus = Arrays.stream(strValues.split(""))
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
+        System.out.println("frequency of each element are :");
+        frequencyOfeachElementOfStrValus.forEach((k, v) -> {
+            System.out.println(k + " : " + v);
+        });
+
+        System.out.println("[7] Find the element who having Maximum frequency of given array element with intvalaues = {1,2,2,2,2,4,1,5,5}");
+        Integer elehavingMaxFreq = Arrays.stream(intValues)
+                .boxed()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .get();
+
+        System.out.println("elehavingMaxFreq : " + elehavingMaxFreq);
+
+        System.out.println("[8] Find the element who having Maximum frequency of given String strValues = Mahesh");
+        Character charelehavingMaxFreq = strValues.chars()
+                .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .get();
+        System.out.println("charelehavingMaxFreq : " + charelehavingMaxFreq);
+
+        System.out.println("[9] Find the element of Maximum frequency of given array element with intvalaues = {1,2,2,2,2,4,1,5,5}");
+        Long maxFreq = Arrays.stream(intValues)
+                .boxed()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .mapToLong(Map.Entry::getValue)
+                .max()
+                .orElse(0);
+        System.out.println("maxFreq : " + maxFreq);
+
+        System.out.println("[10] Find the element of Maximum frequency of given String strValues= Mahesh");
+        Long maxFreqChar = strValues.chars()
+                .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .mapToLong(Map.Entry::getValue)
+                .max()
+                .orElse(0);
+        System.out.println("maxFreqChar : " + maxFreqChar);
     }
-
 }
 
 
