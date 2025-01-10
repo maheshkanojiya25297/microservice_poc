@@ -1,15 +1,15 @@
 package com.java8;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
+
         System.out.println("***********************************************************************************************lets start with some Java 8 features codding Practise !!");
+
         System.out.println("[1] find the first non-repeated character in it using Stream functions with int valaues = {1,2,2,4,1,5,5}");
 
         int[] intValues = {1, 2, 2, 2, 2, 4, 1, 5, 5};
@@ -128,5 +128,20 @@ public class Main {
                 .max()
                 .orElse(0);
         System.out.println("maxFreqChar : " + maxFreqChar);
+
+        List<Integer> aList = Arrays.asList(1, 2, 2, 3, 4);
+        List<Integer> bList = Arrays.asList(11, 12, 12, 13, 4);
+
+        // Find common elements using streams and sets
+        Set<Integer> aSet = new HashSet<>(aList);
+        Set<Integer> bSet = new HashSet<>(bList);
+        Set<Integer> commonElements = aSet.stream()
+                .filter(bSet::contains)
+                .collect(Collectors.toSet());
+
+        System.out.println("Common elements: " + commonElements);
+
+
+
     }
 }
