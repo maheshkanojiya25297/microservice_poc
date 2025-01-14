@@ -14,11 +14,11 @@ public class EmployeeFiltering {
     public static void main(String[] args) {
         // Sample data (replace with your actual data)
         List<Employee> employees = Arrays.asList(
-                new Employee(1, "John Doe", "New York", 50000, new Department(1, "IT")),
-                new Employee(2, "Jane Smith", "London", 60000, new Department(2, "HR")),
-                new Employee(3, "David Lee", "New York", 45000, new Department(1, "IT")),
-                new Employee(4, "Anna Jones", "Paris", 70000, new Department(3, "Marketing")),
-                new Employee(5, "Michael Brown", "New York", 55000, new Department(1, "IT"))
+                new Employee(1, "John Doe", "New York", 34, 50000, new Department(1, "IT")),
+                new Employee(2, "Jane Smith", "London", 24, 60000, new Department(2, "HR")),
+                new Employee(3, "David Lee", "New York", 21, 45000, new Department(1, "IT")),
+                new Employee(4, "Anna Jones", "Paris", 17, 70000, new Department(3, "Marketing")),
+                new Employee(5, "Michael Brown", "New York", 30, 55000, new Department(1, "IT"))
         );
 
         System.out.println("Filter employees by city and salary using Stream API:--");
@@ -67,6 +67,28 @@ public class EmployeeFiltering {
         highPaid.forEach((dept, empl) -> {
             System.out.println("dept: " + dept + " , name: " + empl.get().getName());
         });
+
+
+        // Find the youngest  employee in each department.
+        Map<String, Optional<Employee>> yongestEmployeeEachDeartment = employees.stream()
+                .collect(Collectors.groupingBy(e -> e.getDepartment().getName(),
+                        Collectors.minBy(Comparator.comparingInt(Employee::getAge))));
+
+        yongestEmployeeEachDeartment.forEach((dep, Emp) -> {
+            System.out.println("department: " + dep + ", name: " + Emp.get().getName());
+        });
+
+        System.out.println("find the youngest male employee:--");
+        //find the youngest male employee.
+
+        Employee yongestMaleEmployee = employees.stream().min(Comparator.comparingInt(Employee::getAge)).get();
+        System.out.println("youngest male employee found:--" + yongestMaleEmployee.getName() + " : " + yongestMaleEmployee.getAge());
+
+        System.out.println("find the minimum salary employee:--");
+        //find the minimum salary employee.
+
+        Employee minimumSalary = employees.stream().min(Comparator.comparingDouble(Employee::getSalary)).get();
+        System.out.println("minimum salary employee found:--" + minimumSalary.getName() + " : " + minimumSalary.getSalary());
 
         System.out.println("Group employees by department:--");
         //5 Group employees by department.
@@ -135,6 +157,32 @@ public class EmployeeFiltering {
             maxProfit = Math.max(maxProfit, price - minPrice); // Calculate potential profit at each price
         }
         System.out.println("maxProfit:" + maxProfit);
+
+        System.out.println("write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7");
+
+        String funStr = "abcd123nhcj345ab6m7";
+        Function<String,Integer> extract = s->{
+          StringBuilder sb = new StringBuilder();
+          for(char c : s.toCharArray()){
+              if(Character.isDigit(c)){
+                  sb.append(c);
+              }
+          }
+          return Character.getNumericValue(sb.charAt(sb.length()-2));
+        };
+
+        int secondlastdigitwithFunction = extract.apply(funStr);
+        System.out.println("secondlastdigitwithFunction : " +secondlastdigitwithFunction);
+
+        System.out.println("using java 8 to get second last digit from str = abcd123nhcj345ab6m7");
+        int secondInt = funStr.chars()
+                .filter(Character::isDigit)
+                .mapToObj(Character::getNumericValue)
+                .mapToInt(Integer::intValue)
+                .skip(Math.max(0, funStr.chars()
+                        .filter(Character::isDigit).count()-2)).findFirst().orElse(0);
+
+        System.out.println("secondInt : " +secondInt);
 
 
         System.out.println("***********************************************************************************************lets start with some Java 8 features codding Practise !!");
@@ -261,11 +309,24 @@ public class EmployeeFiltering {
 
 
 class Employee {
+
+
     private int id;
     private String name;
     private String city;
+    private int age;
     private double salary;
     private Department department;
+
+
+    public Employee(int id, String name, String city, int age, double salary, Department department) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.age = age;
+        this.salary = salary;
+        this.department = department;
+    }
 
 
     public int getId() {
@@ -292,6 +353,14 @@ class Employee {
         this.city = city;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public double getSalary() {
         return salary;
     }
@@ -308,16 +377,7 @@ class Employee {
         this.department = department;
     }
 
-    public Employee(int id, String name, String city, double salary, Department department) {
-        this.id = id;
-        this.name = name;
-        this.city = city;
-        this.salary = salary;
-        this.department = department;
-    }
 
-
-    // Constructor, getters, and setters
 }
 
 class Department {

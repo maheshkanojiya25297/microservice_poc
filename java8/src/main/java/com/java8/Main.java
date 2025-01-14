@@ -3,6 +3,7 @@ package com.java8;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Main {
@@ -120,8 +121,8 @@ public class Main {
 
         System.out.println("[10] Find the element of Maximum frequency of given String strValues= Mahesh");
         Long maxFreqChar = strValues.chars()
-                .mapToObj(c->Character.toLowerCase(Character.valueOf((char)c)))
-                .collect(Collectors.groupingBy(c->c, Collectors.counting()))
+                .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .mapToLong(Map.Entry::getValue)
@@ -129,6 +130,20 @@ public class Main {
                 .orElse(0);
         System.out.println("maxFreqChar : " + maxFreqChar);
 
+
+        System.out.println("[10] Find maximum Profit from int[] prices = {1, 4, 6, 7}");
+        int[] prices = {1, 4, 6, 7};
+        System.out.println("prices:" + Arrays.toString(prices));
+        int maxProfit = 0;
+        int minPrice = Integer.MAX_VALUE; // Initialize minPrice to a high value
+        System.out.println("minPrice:" + minPrice);
+        for (int price : prices) {
+            minPrice = Math.min(minPrice, price); // Update minPrice if a lower price is found
+            maxProfit = Math.max(maxProfit, price - minPrice); // Calculate potential profit at each price
+        }
+        System.out.println("maxProfit:" + maxProfit);
+
+        System.out.println("Find out the common elements: ");
         List<Integer> aList = Arrays.asList(1, 2, 2, 3, 4);
         List<Integer> bList = Arrays.asList(11, 12, 12, 13, 4);
 
@@ -141,6 +156,51 @@ public class Main {
 
         System.out.println("Common elements: " + commonElements);
 
+        System.out.println("Find out the second last character from the string str= mahesh");
+        String strNew = "mahesh";
+        Character secondLastChar = (char) strNew.chars()
+                .skip(strNew.length() - 2)
+                .findFirst()
+                .orElse('0');
+        System.out.println("Second last character: " + secondLastChar);
+
+        System.out.println("Find out the second last character from the int[]  val = {2,1,4,5,6,6,8}");
+        int[] valNew1 = {2, 1, 4, 5, 6, 6, 8};
+        Integer secondLastInt = IntStream.of(valNew1)
+                .skip(valNew1.length - 2)
+                .findFirst()
+                .orElse('0');
+        System.out.println("Second last value : " + secondLastInt);
+
+        System.out.println("to get second last digit from str = abcd123nhcj345ab6m7");
+        // Expected output = 6
+        String str = "abcd123nhcj345ab6m7";
+        int lastSecondDigitfromString = str.chars()
+                .filter(Character::isDigit)
+                .mapToObj(Character::getNumericValue)
+                .mapToInt(Integer::intValue)
+                .skip(Math.max(0, str.chars().filter(Character::isDigit).count() - 2))
+                .findFirst()
+                .orElse(0);
+        System.out.println("second last digit  :" + lastSecondDigitfromString);
+
+
+        System.out.println("write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7");
+        // Expected output = 6
+
+        Function<String, Integer> extract = s -> {
+            StringBuffer sb = new StringBuffer();
+            for (char c : s.toCharArray()) {
+                if (Character.isDigit(c))
+                    sb.append(c);
+            }
+
+            //System.out.println("secondLargest: " + Character.getNumericValue(sb.charAt(sb.length() - 2)));
+            return Character.getNumericValue(sb.charAt(sb.length() - 2));
+        }   ;
+
+        int secondLargest = extract.apply(str);
+        System.out.println("secondLargest: " + secondLargest);
 
 
     }
