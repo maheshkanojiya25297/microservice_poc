@@ -130,6 +130,28 @@ public class Main {
                 .orElse(0);
         System.out.println("maxFreqChar : " + maxFreqChar);
 
+        System.out.println("[11] Find the repeated character from  the  given String strr= MaheshMA");
+        String strr= "MaheshMA";
+        List<Character> listOfRepeatedChars = strr.chars()
+                .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet().stream()
+                .filter(entry -> entry.getValue() > 1L)
+                .map(entry -> entry.getKey()).collect(Collectors.toList());
+
+        System.out.println("list of repeated characters are as follows: "+listOfRepeatedChars);
+
+        System.out.println("[12] Find the repeated character from  the  given String strr= MaheshMA");
+        List<Character> listOfNonRepeatedChars = strr.chars()
+                .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() == 1L)
+                .map(entry -> entry.getKey())
+                .collect(Collectors.toList());
+
+        System.out.println("list of non repeated characters are as follows: "+listOfNonRepeatedChars);
 
         System.out.println("[10] Find maximum Profit from int[] prices = {1, 4, 6, 7}");
         int[] prices = {1, 4, 6, 7};
