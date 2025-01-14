@@ -153,7 +153,7 @@ public class Main {
 
         System.out.println("list of non repeated characters are as follows: "+listOfNonRepeatedChars);
 
-        System.out.println("[10] Find maximum Profit from int[] prices = {1, 4, 6, 7}");
+        System.out.println("[13] Find maximum Profit from int[] prices = {1, 4, 6, 7}");
         int[] prices = {1, 4, 6, 7};
         System.out.println("prices:" + Arrays.toString(prices));
         int maxProfit = 0;
@@ -165,7 +165,7 @@ public class Main {
         }
         System.out.println("maxProfit:" + maxProfit);
 
-        System.out.println("Find out the common elements: ");
+        System.out.println("[14] Find out the common elements: ");
         List<Integer> aList = Arrays.asList(1, 2, 2, 3, 4);
         List<Integer> bList = Arrays.asList(11, 12, 12, 13, 4);
 
@@ -178,7 +178,7 @@ public class Main {
 
         System.out.println("Common elements: " + commonElements);
 
-        System.out.println("Find out the second last character from the string str= mahesh");
+        System.out.println("[15] Find out the second last character from the string str= mahesh");
         String strNew = "mahesh";
         Character secondLastChar = (char) strNew.chars()
                 .skip(strNew.length() - 2)
@@ -186,7 +186,7 @@ public class Main {
                 .orElse('0');
         System.out.println("Second last character: " + secondLastChar);
 
-        System.out.println("Find out the second last character from the int[]  val = {2,1,4,5,6,6,8}");
+        System.out.println("[16] Find out the second last character from the int[]  val = {2,1,4,5,6,6,8}");
         int[] valNew1 = {2, 1, 4, 5, 6, 6, 8};
         Integer secondLastInt = IntStream.of(valNew1)
                 .skip(valNew1.length - 2)
@@ -194,7 +194,7 @@ public class Main {
                 .orElse('0');
         System.out.println("Second last value : " + secondLastInt);
 
-        System.out.println("to get second last digit from str = abcd123nhcj345ab6m7");
+        System.out.println("[17] Fid out second last digit from str = abcd123nhcj345ab6m7");
         // Expected output = 6
         String str = "abcd123nhcj345ab6m7";
         int lastSecondDigitfromString = str.chars()
@@ -207,7 +207,7 @@ public class Main {
         System.out.println("second last digit  :" + lastSecondDigitfromString);
 
 
-        System.out.println("write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7");
+        System.out.println("[18] write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7");
         // Expected output = 6
 
         Function<String, Integer> extract = s -> {
