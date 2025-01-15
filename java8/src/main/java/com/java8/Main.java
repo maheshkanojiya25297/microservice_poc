@@ -141,7 +141,7 @@ public class Main {
 
         System.out.println("list of repeated characters are as follows: "+listOfRepeatedChars);
 
-        System.out.println("[12] Find the repeated character from  the  given String strr= MaheshMA");
+        System.out.println("[12] Find the non repeated character from  the  given String strr= MaheshMA");
         List<Character> listOfNonRepeatedChars = strr.chars()
                 .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
                 .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
