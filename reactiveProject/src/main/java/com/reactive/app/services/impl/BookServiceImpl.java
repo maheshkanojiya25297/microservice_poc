@@ -59,7 +59,9 @@ public class BookServiceImpl implements BookServices {
     }
 
     @Override
-    public Flux<Book> search(String query) {
-        return null;
+    public Flux<Book> searchBooks(String titleKeyword) {
+        return bookRepository.searchByTitle("%"+titleKeyword+"%");
     }
+
+
 }

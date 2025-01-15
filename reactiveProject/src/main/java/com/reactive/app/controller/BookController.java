@@ -39,4 +39,9 @@ public class BookController {
         return bookServices.delete(bookId);
     }
 
+    @GetMapping("/search")
+    public Flux<Book> searchBooks(@RequestParam("query") String query) {
+        return this.bookServices.searchBooks(query);
+    }
+
 }
