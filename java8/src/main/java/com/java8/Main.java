@@ -131,15 +131,16 @@ public class Main {
         System.out.println("maxFreqChar : " + maxFreqChar);
 
         System.out.println("[11] Find the repeated character from  the  given String strr= MaheshMA");
-        String strr= "MaheshMA";
+        String strr = "MaheshMA";
         List<Character> listOfRepeatedChars = strr.chars()
                 .mapToObj(c -> Character.toLowerCase(Character.valueOf((char) c)))
                 .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
                 .entrySet().stream()
                 .filter(entry -> entry.getValue() > 1L)
-                .map(entry -> entry.getKey()).collect(Collectors.toList());
+                .map(entry -> entry.getKey())
+                .collect(Collectors.toList());
 
-        System.out.println("list of repeated characters are as follows: "+listOfRepeatedChars);
+        System.out.println("list of repeated characters are as follows: " + listOfRepeatedChars);
 
         System.out.println("[12] Find the non repeated character from  the  given String strr= MaheshMA");
         List<Character> listOfNonRepeatedChars = strr.chars()
@@ -151,9 +152,39 @@ public class Main {
                 .map(entry -> entry.getKey())
                 .collect(Collectors.toList());
 
-        System.out.println("list of non repeated characters are as follows: "+listOfNonRepeatedChars);
+        System.out.println("list of non repeated characters are as follows: " + listOfNonRepeatedChars);
 
-        System.out.println("[13] Find maximum Profit from int[] prices = {1, 4, 6, 7}");
+        System.out.println("[13] list out the repeated character from  given array element with intvalaues = {1,2,2,2,2,4,1,5,5}");
+        int[] arrIntVal = {1, 2, 2, 2, 2, 4, 1, 5, 5};
+        Map<Integer, Long> freqOfintvaluesArray = Arrays.stream(arrIntVal)
+                .boxed()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
+
+        List<Integer> outputNew1 = new ArrayList<>();
+        for (int val : arrIntVal) {
+            if (freqOfintvaluesArray.get(val) > 1L) {
+                outputNew1.add(val);
+            }
+        }
+        System.out.println("outputNew1 : " + outputNew1.stream().distinct().collect(Collectors.toList()));
+
+        System.out.println("[14] list out the nonrepeated character from given array element with intvalaues = {1,2,2,2,2,4,1,5,5}");
+        int[] arrIntVal2 = {1, 2, 2, 2, 2, 4, 1, 5, 5};
+
+        Map<Integer, Long> frq = Arrays.stream(arrIntVal2)
+                .boxed()
+                .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
+
+        List<Integer> outputNew2 = new ArrayList<>();
+        for (int val : arrIntVal2) {
+            if (frq.get(val) == 1L) {
+                outputNew2.add(val);
+            }
+        }
+        System.out.println("non repeaed list are : " + outputNew2.stream().distinct().collect(Collectors.toList()));
+
+
+        System.out.println("[15] Find maximum Profit from int[] prices = {1, 4, 6, 7}");
         int[] prices = {1, 4, 6, 7};
         System.out.println("prices:" + Arrays.toString(prices));
         int maxProfit = 0;
@@ -165,7 +196,7 @@ public class Main {
         }
         System.out.println("maxProfit:" + maxProfit);
 
-        System.out.println("[14] Find out the common elements: ");
+        System.out.println("[16] Find out the common elements: ");
         List<Integer> aList = Arrays.asList(1, 2, 2, 3, 4);
         List<Integer> bList = Arrays.asList(11, 12, 12, 13, 4);
 
@@ -178,7 +209,7 @@ public class Main {
 
         System.out.println("Common elements: " + commonElements);
 
-        System.out.println("[15] Find out the second last character from the string str= mahesh");
+        System.out.println("[17] Find out the second last character from the string str= mahesh");
         String strNew = "mahesh";
         Character secondLastChar = (char) strNew.chars()
                 .skip(strNew.length() - 2)
@@ -186,7 +217,7 @@ public class Main {
                 .orElse('0');
         System.out.println("Second last character: " + secondLastChar);
 
-        System.out.println("[16] Find out the second last character from the int[]  val = {2,1,4,5,6,6,8}");
+        System.out.println("[18] Find out the second last character from the int[]  val = {2,1,4,5,6,6,8}");
         int[] valNew1 = {2, 1, 4, 5, 6, 6, 8};
         Integer secondLastInt = IntStream.of(valNew1)
                 .skip(valNew1.length - 2)
@@ -194,7 +225,7 @@ public class Main {
                 .orElse('0');
         System.out.println("Second last value : " + secondLastInt);
 
-        System.out.println("[17] Fid out second last digit from str = abcd123nhcj345ab6m7");
+        System.out.println("[19] Fid out second last digit from str = abcd123nhcj345ab6m7");
         // Expected output = 6
         String str = "abcd123nhcj345ab6m7";
         int lastSecondDigitfromString = str.chars()
@@ -207,7 +238,7 @@ public class Main {
         System.out.println("second last digit  :" + lastSecondDigitfromString);
 
 
-        System.out.println("[18] write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7");
+        System.out.println("[20] write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7");
         // Expected output = 6
 
         Function<String, Integer> extract = s -> {
@@ -219,7 +250,7 @@ public class Main {
 
             //System.out.println("secondLargest: " + Character.getNumericValue(sb.charAt(sb.length() - 2)));
             return Character.getNumericValue(sb.charAt(sb.length() - 2));
-        }   ;
+        };
 
         int secondLargest = extract.apply(str);
         System.out.println("secondLargest: " + secondLargest);
