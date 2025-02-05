@@ -102,6 +102,19 @@ public class EmployeeFiltering {
             employees1.forEach(employee -> System.out.println("\t- name: " + employee.getName()));
         });
 
+        //other alternative way to group employee
+        Map<Department, List<Employee>> groupEmployeee = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
+
+        System.out.println("groupEmployeee------------------>:");
+
+        for(Map.Entry<Department,List<Employee>> entry: groupEmployeee.entrySet()){
+            Department dep = entry.getKey();
+            List<Employee> emp = entry.getValue();
+            emp.forEach(e->System.out.println("{"+dep.getName()+":"+e.getName()+"}"));
+        }
+
+
         // print the employee
         /*for(Map.Entry<String, List<Employee>> entry : groupEmp.entrySet())
         {

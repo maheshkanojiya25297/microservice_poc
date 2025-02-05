@@ -184,32 +184,7 @@ public class Main {
         System.out.println("non repeaed list are : " + outputNew2.stream().distinct().collect(Collectors.toList()));
 
 
-        System.out.println("[15] Find maximum Profit from int[] prices = {1, 4, 6, 7}");
-        int[] prices = {1, 4, 6, 7};
-        System.out.println("prices:" + Arrays.toString(prices));
-        int maxProfit = 0;
-        int minPrice = Integer.MAX_VALUE; // Initialize minPrice to a high value
-        System.out.println("minPrice:" + minPrice);
-        for (int price : prices) {
-            minPrice = Math.min(minPrice, price); // Update minPrice if a lower price is found
-            maxProfit = Math.max(maxProfit, price - minPrice); // Calculate potential profit at each price
-        }
-        System.out.println("maxProfit:" + maxProfit);
-
-        System.out.println("[16] Find out the common elements: ");
-        List<Integer> aList = Arrays.asList(1, 2, 2, 3, 4);
-        List<Integer> bList = Arrays.asList(11, 12, 12, 13, 4);
-
-        // Find common elements using streams and sets
-        Set<Integer> aSet = new HashSet<>(aList);
-        Set<Integer> bSet = new HashSet<>(bList);
-        Set<Integer> commonElements = aSet.stream()
-                .filter(bSet::contains)
-                .collect(Collectors.toSet());
-
-        System.out.println("Common elements: " + commonElements);
-
-        System.out.println("[17] Find out the second last character from the string str= mahesh");
+        System.out.println("[15] Find out the second last character from the string str= mahesh");
         String strNew = "mahesh";
         Character secondLastChar = (char) strNew.chars()
                 .skip(strNew.length() - 2)
@@ -217,7 +192,7 @@ public class Main {
                 .orElse('0');
         System.out.println("Second last character: " + secondLastChar);
 
-        System.out.println("[18] Find out the second last character from the int[]  val = {2,1,4,5,6,6,8}");
+        System.out.println("[16] Find out the second last character from the int[]  val = {2,1,4,5,6,6,8}");
         int[] valNew1 = {2, 1, 4, 5, 6, 6, 8};
         Integer secondLastInt = IntStream.of(valNew1)
                 .skip(valNew1.length - 2)
@@ -225,7 +200,7 @@ public class Main {
                 .orElse('0');
         System.out.println("Second last value : " + secondLastInt);
 
-        System.out.println("[19] Fid out second last digit from str = abcd123nhcj345ab6m7");
+        System.out.println("[17] Fid out second last digit from str = abcd123nhcj345ab6m7");
         // Expected output = 6
         String str = "abcd123nhcj345ab6m7";
         int lastSecondDigitfromString = str.chars()
@@ -238,7 +213,7 @@ public class Main {
         System.out.println("second last digit  :" + lastSecondDigitfromString);
 
 
-        System.out.println("[20] write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7");
+        System.out.println("[18] write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7");
         // Expected output = 6
 
         Function<String, Integer> extract = s -> {
@@ -255,6 +230,85 @@ public class Main {
         int secondLargest = extract.apply(str);
         System.out.println("secondLargest: " + secondLargest);
 
+
+        System.out.println("[19] Find maximum Profit from int[] prices = {1, 4, 6, 7}");
+        int[] prices = {1, 4, 6, 7};
+        System.out.println("prices:" + Arrays.toString(prices));
+        int maxProfit = 0;
+        int minPrice = Integer.MAX_VALUE; // Initialize minPrice to a high value
+        System.out.println("minPrice:" + minPrice);
+        for (int price : prices) {
+            minPrice = Math.min(minPrice, price); // Update minPrice if a lower price is found
+            maxProfit = Math.max(maxProfit, price - minPrice); // Calculate potential profit at each price
+        }
+        System.out.println("maxProfit:" + maxProfit);
+
+        System.out.println("[20] Find out the common elements: ");
+        List<Integer> aList = Arrays.asList(1, 2, 2, 3, 4);
+        List<Integer> bList = Arrays.asList(11, 12, 12, 13, 4);
+
+        // Find common elements using streams and sets
+        Set<Integer> aSet = new HashSet<>(aList);
+        Set<Integer> bSet = new HashSet<>(bList);
+        Set<Integer> commonElements = aSet.stream()
+                .filter(bSet::contains)
+                .collect(Collectors.toSet());
+
+        System.out.println("Common elements: " + commonElements);
+
+        System.out.println("[21] Find out the anagram from string array and group them: ");
+        String[] anagramInput = {"eat", "tea", "tan", "ate", "nat", "bat"};
+        List<List<String>> groupAnagram = Arrays.stream(anagramInput)
+                .collect(Collectors.groupingBy(strc -> {
+                    char[] c = strc.toCharArray();
+                    Arrays.sort(c);
+                    return new String(c);
+                })).values().stream().toList();
+        System.out.println("group of anagram are as follows: " + groupAnagram);
+
+        System.out.println("[22] Find out the maximum vowel from string array: ");
+        String[] words = {"apple", "banana", "orange", "kiwi", "aardvark", "elephant"};
+        List<String> maxVowel = new ArrayList<>();
+        Map<String, Integer> vowelCounts = new HashMap<>();
+        String vowels = null;
+        for (String word : words) {
+            vowels = word.replaceAll("[^aeiouAEIOU]", "");
+            Set<Character> uniqueVowel = new HashSet<>();
+            for (char c : vowels.toCharArray()) {
+                uniqueVowel.add(c);
+            }
+            vowelCounts.put(word, uniqueVowel.size());
+        }
+
+        int maxFreOfVowel = Collections.max(vowelCounts.values());
+        //System.out.println("maximum vowel frequency : " + maxFreOfVowel);
+        for (Map.Entry<String, Integer> entry : vowelCounts.entrySet()) {
+            if (entry.getValue() == maxFreOfVowel) {
+                maxVowel.add(entry.getKey());
+            }
+        }
+        System.out.println("maximum vowel found : " + maxVowel);
+
+        System.out.println("[23] Find out the first non repeated vowel from string : ");
+
+        String strInput = "hello World";
+
+        String processStr = strInput.toLowerCase().replaceAll("[^a-z]", "");
+        //System.out.println("processStr:" + processStr);
+        Map<Character, Integer> hm = new HashMap<>();
+
+        for (char c : processStr.toCharArray()) {
+           // System.out.println("c:" + c);
+            if ("aeiou".indexOf(c) != -1) {
+                hm.put(c, hm.getOrDefault(c, 0) + 1);
+            }
+        }
+        //System.out.println("hm:" + hm);
+        for (Map.Entry<Character, Integer> entry : hm.entrySet()) {
+            if (entry.getValue() == 1L) {
+                System.out.println("first non repeated character found: " + entry.getKey());
+            }
+        }
 
     }
 }
