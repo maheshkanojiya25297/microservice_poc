@@ -50,6 +50,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>sb_docker_name</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

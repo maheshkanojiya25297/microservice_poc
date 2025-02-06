@@ -21,7 +21,7 @@ public class EmployeeFiltering {
                 new Employee(5, "Michael Brown", "New York", 30, 55000, new Department(1, "IT"))
         );
 
-        System.out.println("Filter employees by city and salary using Stream API:--");
+        System.out.println("[1] Filter employees by city and salary using Stream API:--");
         // 1 Filter employees by city and salary using Stream API
         List<Employee> filteredEmployees = employees.stream()
                 .filter(e -> e.getCity().equals("New York"))
@@ -32,7 +32,7 @@ public class EmployeeFiltering {
         // Print the filtered employees
         filteredEmployees.forEach(e -> System.out.println("The Final Output is:  " + e.getName() + " , " + e.getCity()));
 
-        System.out.println("Find the average salary of employees in a department:--");
+        System.out.println("[2] Find the average salary of employees in a department:--");
         //2 Find the average salary of employees in IT department
         double averageSalary = employees.stream()
                 .filter(e -> e.getDepartment().getName().equals("IT"))
@@ -41,7 +41,7 @@ public class EmployeeFiltering {
                 .orElse(00);
         System.out.println("averageSalary : " + averageSalary);
 
-        System.out.println("Sort employees by salary in descending order:--");
+        System.out.println("[3] Sort employees by salary in descending order:--");
         //3 Sort employees by salary in descending order.
         List<Employee> descSalary = employees.stream()
                 .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
@@ -58,7 +58,7 @@ public class EmployeeFiltering {
             System.out.println("No Data Found");
         }
 
-        System.out.println("Find the highest paid employee in each department.:--");
+        System.out.println("[4] Find the highest paid employee in each department.:--");
         //4 Find the highest paid employee in each department.
         Map<String, Optional<Employee>> highPaid = employees.stream()
                 .collect(Collectors.groupingBy(e -> e.getDepartment().getName(),
@@ -68,8 +68,8 @@ public class EmployeeFiltering {
             System.out.println("dept: " + dept + " , name: " + empl.get().getName());
         });
 
-
-        // Find the youngest  employee in each department.
+        System.out.println("[5] Find the youngest  employee in each department.:--");
+        //5 Find the youngest  employee in each department.
         Map<String, Optional<Employee>> yongestEmployeeEachDeartment = employees.stream()
                 .collect(Collectors.groupingBy(e -> e.getDepartment().getName(),
                         Collectors.minBy(Comparator.comparingInt(Employee::getAge))));
@@ -78,20 +78,20 @@ public class EmployeeFiltering {
             System.out.println("department: " + dep + ", name: " + Emp.get().getName());
         });
 
-        System.out.println("find the youngest male employee:--");
-        //find the youngest male employee.
+        System.out.println("[6] Find the youngest male employee:--");
+        //6 find the youngest male employee.
 
         Employee yongestMaleEmployee = employees.stream().min(Comparator.comparingInt(Employee::getAge)).get();
         System.out.println("youngest male employee found:--" + yongestMaleEmployee.getName() + " : " + yongestMaleEmployee.getAge());
 
-        System.out.println("find the minimum salary employee:--");
-        //find the minimum salary employee.
+        System.out.println("[7] find the minimum salary employee:--");
+        //7 find the minimum salary employee.
 
         Employee minimumSalary = employees.stream().min(Comparator.comparingDouble(Employee::getSalary)).get();
         System.out.println("minimum salary employee found:--" + minimumSalary.getName() + " : " + minimumSalary.getSalary());
 
-        System.out.println("Group employees by department:--");
-        //5 Group employees by department.
+        System.out.println("[8] Group employees by department:--");
+        //8 Group employees by department.
 
         Map<String, List<Employee>> groupEmp = employees.stream()
                 .collect(Collectors.groupingBy(e -> e.getDepartment().getName()));
@@ -125,15 +125,15 @@ public class EmployeeFiltering {
         }*/
 
 
-        System.out.println("Calculate the total salary of all employees:--");
-        //6 Calculate the total salary of all employees.
+        System.out.println("[9] Calculate the total salary of all employees:--");
+        //9 Calculate the total salary of all employees.
         double totalSalary = employees.stream()
                 .mapToDouble(Employee::getSalary)
                 .sum();
         System.out.println("totalSalary:" + totalSalary);
 
-        System.out.println("Find the number of employees in each department:--");
-        //7 Find the number of employees in each department
+        System.out.println("[10] Find the number of employees in each department:--");
+        //10 Find the number of employees in each department
         Map<String, Long> employeeCountByDepartment =
                 employees.stream()
                         .collect(Collectors.groupingBy(e -> e.getDepartment().getName(),
@@ -143,22 +143,22 @@ public class EmployeeFiltering {
             System.out.println("Department: " + dep + " having cout: " + count);
         });
 
-        System.out.println("Remove duplicates from a list of strings:--");
-        //8 Remove duplicates from a list of strings.
+        System.out.println("[11] Remove duplicates from a list of strings:--");
+        //11 Remove duplicates from a list of strings.
         List<Employee> distinctStrings = employees.stream()
                 .distinct()
                 .collect(Collectors.toList());
 
         distinctStrings.forEach(e -> System.out.println(e.getName() + " : " + e.getDepartment().getName()));
 
-        System.out.println("Check if a list contains a specific element:--");
-        //9 Check if a list contains a specific element.
+        System.out.println("[12] Check if a list contains a specific element:--");
+        //12 Check if a list contains a specific element.
         boolean containsElement = employees.stream()
                 .anyMatch(s -> s.getName().equals("John Doe"));
         System.out.println("ans: " + containsElement);
 
-
-        //14 calculate the maximum profit
+        System.out.println("[13] calculate the maximum profit:--");
+        //13 calculate the maximum profit
 
         int[] prices = {1, 4, 6, 7};
         System.out.println("prices:" + Arrays.toString(prices));
@@ -171,7 +171,8 @@ public class EmployeeFiltering {
         }
         System.out.println("maxProfit:" + maxProfit);
 
-        System.out.println("write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7");
+        System.out.println("[14] write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7");
+        //14 write a function functional interface to get second last digit from str = abcd123nhcj345ab6m7
 
         String funStr = "abcd123nhcj345ab6m7";
         Function<String,Integer> extract = s->{
@@ -187,7 +188,8 @@ public class EmployeeFiltering {
         int secondlastdigitwithFunction = extract.apply(funStr);
         System.out.println("secondlastdigitwithFunction : " +secondlastdigitwithFunction);
 
-        System.out.println("using java 8 to get second last digit from str = abcd123nhcj345ab6m7");
+        System.out.println("[15]using java 8 to get second last digit from str = abcd123nhcj345ab6m7");
+        //15 to get second last digit from str = abcd123nhcj345ab6m7
         int secondInt = funStr.chars()
                 .filter(Character::isDigit)
                 .mapToObj(Character::getNumericValue)

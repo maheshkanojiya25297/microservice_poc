@@ -18,13 +18,19 @@ public class ZcrudUserControllers {
     @Autowired
     private ZcrudUserService zcrudUserService;
 
+
+    @GetMapping
+    public  String test(){
+        return  "Test !";
+    }
+
     @PostMapping
     public ResponseEntity<User> creatUser(@RequestBody User user) {
         User user1 = zcrudUserService.creatUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user1);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUser() {
         List<User> result = zcrudUserService.getAllUser();
         return ResponseEntity.ok().body(result);

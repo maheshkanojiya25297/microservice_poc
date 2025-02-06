@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:17
 
 COPY target/sb_docker_name.jar /usr/app/
 
