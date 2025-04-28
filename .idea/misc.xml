@@ -5,7 +5,6 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/ApiGateway/pom.xml" />
-        <option value="$PROJECT_DIR$/UserService/UserService/pom.xml" />
         <option value="$PROJECT_DIR$/ConfigServer/pom.xml" />
         <option value="$PROJECT_DIR$/HotelService/pom.xml" />
         <option value="$PROJECT_DIR$/RatingService/pom.xml" />
@@ -25,12 +24,18 @@
         <option value="$PROJECT_DIR$/EmailServiceNotification/pom.xml" />
         <option value="$PROJECT_DIR$/twilioPushNotification/pom.xml" />
         <option value="$PROJECT_DIR$/ExelFileUploadApachePoI/pom.xml" />
+        <option value="$PROJECT_DIR$/java8/pom.xml" />
+        <option value="$PROJECT_DIR$/aws-lambda-example/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/UserService/UserService/pom.xml" />
+        <option value="$PROJECT_DIR$/location-microservice/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/KeyCloakSecureService/pom.xml" />
         <option value="$PROJECT_DIR$/StundentRelationMapping/pom.xml" />
+        <option value="$PROJECT_DIR$/aws-lambda-example/pom.xml" />
       </set>
     </option>
   </component>

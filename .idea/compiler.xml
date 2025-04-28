@@ -10,13 +10,15 @@
         <module name="twilioPushNotification" />
         <module name="HotelService" />
         <module name="EmailServiceNotification" />
-        <module name="UserService" />
         <module name="HazelCastCacheService" />
         <module name="RedisCacheService" />
+        <module name="UserService" />
         <module name="secure-springboot-keyclock" />
         <module name="ZcrudUserService" />
         <module name="springboot-keyclock" />
+        <module name="com.java8" />
         <module name="relationShipMapping" />
+        <module name="demo" />
         <module name="ApiGateway" />
         <module name="ExelFileUploadApachePoI" />
         <module name="ConfigServer" />
@@ -26,8 +28,18 @@
         <module name="multiple-Db-Connectivity" />
         <module name="jwtGeneration" />
       </profile>
+      <profile name="Annotation profile for location-microservice" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="location-microservice" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="aws-lambda-example" target="19" />
       <module name="hibernate-SecondLevel-Caching" target="1.5" />
       <module name="ProjectWithMaven" target="1.5" />
       <module name="redis-cache" target="19" />
@@ -51,7 +63,9 @@
       <module name="ZcrudUserService" options="-parameters" />
       <module name="ZcrudUserService (1)" options="-parameters" />
       <module name="ZcrudUserService (2)" options="-parameters" />
+      <module name="demo" options="-parameters" />
       <module name="jwtGeneration" options="-parameters" />
+      <module name="location-microservice" options="-parameters" />
       <module name="multiple-Db-Connectivity" options="-parameters" />
       <module name="redis-cache" options="-parameters" />
       <module name="relationShipMapping" options="-parameters" />
