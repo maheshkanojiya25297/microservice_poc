@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 public class test {
 
 
-    /*
+
     private static int countPairs(int[] a, int b) {
 
         int count = 0;
@@ -163,11 +163,11 @@ public class test {
         return result;
     }
 
-    */
+
 
     public static void main(String[] args) {
 
-        /*
+
         System.out.println("[1] find the first non-repeated character in it using Stream functions with int valaues = {1,2,2,4,1,5,5}");
 
         int[] valaues = {1, 2, 2, 4, 1, 5, 5};
@@ -582,10 +582,11 @@ public class test {
         Employee minimumSalary = emp.stream().min(Comparator.comparingDouble(Employee::getSalary)).get();
         System.out.println("minimum salary : emp name: " + minimumSalary.getName() + ": emp age: " + minimumSalary.getAge() + " :emp department: " + minimumSalary.getDepartment().getName());
 
-        */
-
 
         System.out.println("==============================================================================================================");
+
+
+
 
 
 

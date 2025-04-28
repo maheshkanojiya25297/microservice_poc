@@ -1,5 +1,8 @@
 package com.java8;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -298,7 +301,7 @@ public class Main {
         Map<Character, Integer> hm = new HashMap<>();
 
         for (char c : processStr.toCharArray()) {
-           // System.out.println("c:" + c);
+            // System.out.println("c:" + c);
             if ("aeiou".indexOf(c) != -1) {
                 hm.put(c, hm.getOrDefault(c, 0) + 1);
             }
