@@ -31,14 +31,14 @@
     <file url="file://$PROJECT_DIR$/ZcrudUserService/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/aws-lambda-example/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/aws-lambda-example/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/deliveryboy/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/enduser/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/hibernate-SecondLevel-Caching/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/hibernate-SecondLevel-Caching/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/java8/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/java8/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jwtGeneration/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka_deliveryboy/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka_enduser/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/location-microservice/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/multiple-Db-Connectivity/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/relationShipMapping/src/main/java" charset="UTF-8" />
