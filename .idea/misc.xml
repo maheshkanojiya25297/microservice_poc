@@ -29,6 +29,8 @@
         <option value="$PROJECT_DIR$/demo/pom.xml" />
         <option value="$PROJECT_DIR$/UserService/UserService/pom.xml" />
         <option value="$PROJECT_DIR$/location-microservice/pom.xml" />
+        <option value="$PROJECT_DIR$/deliveryboy/pom.xml" />
+        <option value="$PROJECT_DIR$/enduser/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
