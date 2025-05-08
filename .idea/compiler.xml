@@ -28,29 +28,23 @@
         <module name="multiple-Db-Connectivity" />
         <module name="jwtGeneration" />
       </profile>
-      <profile name="Annotation profile for deliveryboy" enabled="true">
+      <profile name="Annotation profile for saga-choregraphy-pattern" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
+        <module name="common-dtos" />
         <module name="location-microservice" />
-        <module name="deliveryboy" />
-      </profile>
-      <profile name="Annotation profile for enduser" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-        </processorPath>
-        <module name="enduser" />
+        <module name="payment-service" />
+        <module name="order-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="aws-lambda-example" target="19" />
+      <module name="deliveryboy" target="17" />
+      <module name="enduser" target="17" />
       <module name="hibernate-SecondLevel-Caching" target="1.5" />
       <module name="ProjectWithMaven" target="1.5" />
       <module name="redis-cache" target="19" />
@@ -74,14 +68,18 @@
       <module name="ZcrudUserService" options="-parameters" />
       <module name="ZcrudUserService (1)" options="-parameters" />
       <module name="ZcrudUserService (2)" options="-parameters" />
+      <module name="common-dtos" options="-parameters" />
       <module name="deliveryboy" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="enduser" options="-parameters" />
       <module name="jwtGeneration" options="-parameters" />
       <module name="location-microservice" options="-parameters" />
       <module name="multiple-Db-Connectivity" options="-parameters" />
+      <module name="order-service" options="-parameters" />
+      <module name="payment-service" options="-parameters" />
       <module name="redis-cache" options="-parameters" />
       <module name="relationShipMapping" options="-parameters" />
+      <module name="saga-choregraphy-pattern" options="-parameters" />
       <module name="secure-springboot-keyclock" options="-parameters" />
       <module name="springboot-keyclock" options="-parameters" />
       <module name="twilioPushNotification" options="-parameters" />

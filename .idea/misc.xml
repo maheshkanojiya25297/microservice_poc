@@ -31,6 +31,7 @@
         <option value="$PROJECT_DIR$/location-microservice/pom.xml" />
         <option value="$PROJECT_DIR$/deliveryboy/pom.xml" />
         <option value="$PROJECT_DIR$/enduser/pom.xml" />
+        <option value="$PROJECT_DIR$/saga-choregraphy-pattern/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
