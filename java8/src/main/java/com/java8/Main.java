@@ -313,5 +313,16 @@ public class Main {
             }
         }
 
+        System.out.println("[24] Find out the Max Frequency Character with value from string : Temp Testing");
+
+        String strIn = "Temp Testing";
+        Map<Character, Long> FreqStrIn = strIn.chars().mapToObj(c->Character.toLowerCase(Character.valueOf((char)c)))
+                .collect(Collectors.groupingBy(c->c, Collectors.counting()));
+
+
+        Optional<Map.Entry<Character, Long>> maxFrqMap = FreqStrIn.entrySet().stream().max(Map.Entry.comparingByValue());
+        System.out.println("String Input is : " +strIn);
+        System.out.println("maximum having Frequency of output Map is : " +maxFrqMap.get());
+
     }
 }
